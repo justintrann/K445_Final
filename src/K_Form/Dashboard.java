@@ -4,6 +4,7 @@
  */
 package K_Form;
 
+import K_Classes.Functions;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Image;
@@ -25,6 +26,8 @@ public class Dashboard extends javax.swing.JFrame {
     Border buttonBorder1 = BorderFactory.createMatteBorder(1, 1, 1, 1, Color.white);
     Border buttonBorder0 = BorderFactory.createMatteBorder(1, 1, 1, 1, new Color(239,230,213));
     
+    K_Classes.Functions func = new Functions();
+    
     /**
      * Creates new form Dashboard
      */
@@ -32,7 +35,12 @@ public class Dashboard extends javax.swing.JFrame {
         initComponents();
         //center form
         this.setLocationRelativeTo(null);
-        displayImage();
+        
+        func.displayImage(jLabel1.getWidth(),jLabel1.getHeight(), "/K_Image/2_dashboard.png", jLabel1);
+        
+        
+        
+        
         Border panelHeaderBorder = BorderFactory.createMatteBorder(0, 0, 1, 0, Color.white);
         Header.setBorder(panelHeaderBorder);
         
@@ -48,19 +56,13 @@ public class Dashboard extends javax.swing.JFrame {
         
         Border panelHeaderBorder_4 = BorderFactory.createMatteBorder(0, 0, 1, 0, Color.white);
         j4_header.setBorder(panelHeaderBorder_4);
-    }
-
-        public void displayImage()
-    {
-        //get img
-        ImageIcon imgIco = new ImageIcon(getClass().getResource("/K_Image/2_dashboard.png"));
-        //set true scale
-        Image img = imgIco.getImage().getScaledInstance(jLabel1.getWidth(),jLabel1.getHeight(), Image.SCALE_SMOOTH);
         
-        jLabel1.setIcon(new ImageIcon(img));
         addBorders();
         buttonsHoverEffect();
+        
+       
     }
+
     
         //Add for all panel
     public void addBorders()

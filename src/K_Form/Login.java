@@ -5,6 +5,7 @@
 package K_Form;
 
 import K_Classes.DB;
+import K_Classes.Functions;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 import java.sql.ResultSet;
@@ -19,6 +20,7 @@ import javax.swing.JOptionPane;
  */
 public class Login extends javax.swing.JFrame {
 
+        
     /**
      * Creates new form Login
      */
@@ -26,18 +28,13 @@ public class Login extends javax.swing.JFrame {
         initComponents();
         //Scale to Center of Screen
         this.setLocationRelativeTo(null);
-        displayImage();
+        
+        K_Classes.Functions func = new Functions();
+        func.displayImage(jLabel1.getWidth(),jLabel1.getHeight(), "/K_Image/1_login.png", jLabel1);
+        
     }
 
-    public void displayImage()
-    {
-        //get img
-        ImageIcon imgIco = new ImageIcon(getClass().getResource("/K_Image/1_login.png"));
-        //set true scale
-        Image img = imgIco.getImage().getScaledInstance(jLabel1.getWidth(),jLabel1.getHeight(), Image.SCALE_SMOOTH);
-        
-        jLabel1.setIcon(new ImageIcon(img));
-    }
+   
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
