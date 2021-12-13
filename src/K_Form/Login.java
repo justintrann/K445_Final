@@ -4,9 +4,15 @@
  */
 package K_Form;
 
+import K_Classes.DB;
 import java.awt.Image;
 import javax.swing.ImageIcon;
-
+import java.sql.ResultSet;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 /**
  *
  * @author Justin
@@ -162,7 +168,47 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        //GET from db
+        String username = jText_Username.getText();
+        String password = String.valueOf(jText_Password.getPassword());
+        
+        ResultSet rs;
+        PreparedStatement ps;
+        
+        String query = "SELECT * FROM `users` WHERE `username` = ? AND `password` = ?";
+        //Check if jText empty ?
+        if (username.trim().equals("") || password.trim().equals(""))
+        {
+            JOptionPane.showMessageDialog(null, "Please Check your username & password again" , "Error" , 3);
+        }
+        else
+        {
+            try {
+                
+                ps = DB.getConnection().prepareStatement(query);
+                ps.setString(1, username);
+                ps.setString(2, password);
+                rs = ps.executeQuery();
+                
+                if (rs.next())
+                {
+                    Dashboard dash = new Dashboard();
+                    dash.setVisible(true);
+                    
+                    //Must close Login Form
+                    this.dispose();
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(null, "Wrong Information" , "Error" , 0);
+                }
+                
+                
+            } catch (SQLException ex) {
+                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
