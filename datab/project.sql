@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 13, 2021 at 06:42 PM
+-- Generation Time: Dec 14, 2021 at 04:54 PM
 -- Server version: 10.4.18-MariaDB
 -- PHP Version: 7.4.16
 
@@ -11,14 +11,14 @@ SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
 
-CREATE DATABASE project;
-USE project;
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
 
+CREATE DATABASE project;
+USE project;
 --
 -- Database: `project`
 --
@@ -39,7 +39,8 @@ CREATE TABLE `paint_genres` (
 --
 
 INSERT INTO `paint_genres` (`id`, `name`) VALUES
-(1, 'ztest');
+(1, 'ztest1'),
+(2, 'test1');
 
 -- --------------------------------------------------------
 
@@ -85,7 +86,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `paint_genres`
 --
 ALTER TABLE `paint_genres`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `users`

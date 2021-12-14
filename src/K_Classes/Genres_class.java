@@ -4,8 +4,12 @@
  */
 package K_Classes;
 
+import K_Form.Genres;
+import static java.awt.image.ImageObserver.WIDTH;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -90,7 +94,61 @@ public class Genres_class {
             Logger.getLogger(Genres_class.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+        
+        //Delete
+    public void deleteGenres(int _id)
+    {
+        String deleteQuery = "DELETE FROM `paint_genres` WHERE `id` = ?";
+        
+        try {
+            PreparedStatement ps = DB.getConnection().prepareStatement(deleteQuery);
+            
+            //Because SET `SQL is first , so we must set index below of name firstly
+            ps.setInt(1,_id);
+            if(ps.executeUpdate() != 0)
+            {
+                JOptionPane.showMessageDialog(null, "Successfully","Deleted Genres",1);
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(null, "Failed","Deleted Genres",2);
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Genres_class.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+    
+    //For jTable arrayList. GET from DB to jTable
+    public static ArrayList<Genres_class> genresList()
+    {
+       ArrayList<Genres_class> glist = new ArrayList<>();
+       
+       String selectQuery = "SELECT * FROM `paint_genres`";
+       PreparedStatement ps;
+       ResultSet rs;
+        
+        try {
+            ps = DB.getConnection().prepareStatement(selectQuery);
+            rs = ps.executeQuery();
+            
+            Genres_class genrc;
+            
+            while (rs.next())
+            {
+                genrc = new Genres_class(rs.getInt("id"), rs.getString("name"));
+                glist.add(genrc);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Genres_class.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            
+      return glist;
+    }
+    
+
     
     
     
-}
+}//End O F

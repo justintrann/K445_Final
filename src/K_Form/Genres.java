@@ -5,9 +5,13 @@
 package K_Form;
 
 import K_Classes.Functions;
+import K_Classes.Genres_class;
 import java.awt.Color;
+import java.util.ArrayList;
 import javax.swing.BorderFactory;
+import javax.swing.JOptionPane;
 import javax.swing.border.Border;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -38,6 +42,9 @@ public class Genres extends javax.swing.JFrame {
         
         //For the label down 'Name
         jLabel3.setVisible(false);
+        
+        //j
+        populatejTablewithGenres();
     }
 
     /**
@@ -76,6 +83,11 @@ public class Genres extends javax.swing.JFrame {
         jLabel1_header.setOpaque(true);
 
         jButton1.setText("BACK");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setText("ID");
@@ -88,6 +100,11 @@ public class Genres extends javax.swing.JFrame {
         jText_name.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         jButton_delete.setText("Delete");
+        jButton_delete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_deleteActionPerformed(evt);
+            }
+        });
 
         jButton_add.setText("Add");
         jButton_add.addActionListener(new java.awt.event.ActionListener() {
@@ -105,13 +122,10 @@ public class Genres extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+
             }
         ));
         jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -134,20 +148,20 @@ public class Genres extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addGap(0, 1, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(17, 17, 17)
+                        .addComponent(jButton_add, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel2)
                             .addComponent(jLabel1)
                             .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(14, 14, 14)
-                                .addComponent(jLabel1_header, javax.swing.GroupLayout.PREFERRED_SIZE, 743, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -159,12 +173,11 @@ public class Genres extends javax.swing.JFrame {
                                                 .addGap(18, 18, 18)
                                                 .addComponent(jButton_delete, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                         .addGap(0, 0, Short.MAX_VALUE)))
-                                .addGap(67, 67, 67)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(49, 49, 49))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(17, 17, 17)
-                        .addComponent(jButton_add, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGap(34, 34, 34)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(14, 14, 14)
+                                .addComponent(jLabel1_header, javax.swing.GroupLayout.PREFERRED_SIZE, 640, javax.swing.GroupLayout.PREFERRED_SIZE))))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -199,7 +212,7 @@ public class Genres extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 840, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -220,11 +233,14 @@ public class Genres extends javax.swing.JFrame {
         {
             //K_Classes.Genres_class ge = new K_Classes.Genres_class();
             ge.addGenres(genr);
+            
+            //Refresh after Add 
+            populatejTablewithGenres();
         }
     }//GEN-LAST:event_jButton_addActionPerformed
 
     private void jButton_editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_editActionPerformed
-        int id =Integer.valueOf(jText_id.getText());
+        //
         String genr = jText_name.getText();
         
         if(genr.isEmpty())
@@ -233,19 +249,84 @@ public class Genres extends javax.swing.JFrame {
         }
         else
         {
+            try
+            {
+                int id =Integer.parseInt(jText_id.getText());
+                ge.editGenres(id,genr);
             
-            ge.editGenres(id,genr);
+            //Refresh after Add 
+            populatejTablewithGenres();
+            }
+            catch(NumberFormatException ex)
+            {
+                JOptionPane.showMessageDialog(null, "Invalid ID - " + ex.getMessage(),"Error",3);
+            }
         }
     }//GEN-LAST:event_jButton_editActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-        // Display selected Genres
+        int index = jTable1.getSelectedRow();
+        
+        //Get Values
+        String id = jTable1.getValueAt(index, 0).toString();
+        String name = jTable1.getValueAt(index, 1).toString();
+        
+        //Show
+        jText_id.setText(id);
+        jText_name.setText(name);
+        
     }//GEN-LAST:event_jTable1MouseClicked
-
+    
+    //GET from DB to jTable
+    public void populatejTablewithGenres(){
+        ArrayList<Genres_class> genresList = Genres_class.genresList();
+        
+        //Column
+        String[] colName = {"ID", "NAME"};
+        
+        //Row
+        Object[][] rows = new Object[genresList.size()][colName.length];
+        
+        for (int i=0; i<genresList.size(); i++)
+        {
+            rows[i][0] = genresList.get(i).getId();
+            rows[i][1] = genresList.get(i).getName();
+        }
+        
+        DefaultTableModel model = new DefaultTableModel(rows,colName);
+        jTable1.setModel(model);
+    }
+    
+    
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
         // Hide Label on Click
         jLabel3.setVisible(false);
     }//GEN-LAST:event_jLabel3MouseClicked
+
+    private void jButton_deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_deleteActionPerformed
+        
+        try
+            {
+                int id =Integer.parseInt(jText_id.getText());
+                ge.deleteGenres(id);
+                
+                //Refresh after Add 
+                populatejTablewithGenres();
+                
+                //Clear after hit
+                jText_id.setText("");
+                jText_name.setText("");
+                
+            }
+            catch(NumberFormatException ex)
+            {
+                JOptionPane.showMessageDialog(null, "Invalid ID - " + ex.getMessage(),"Error",3);
+            }
+    }//GEN-LAST:event_jButton_deleteActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
