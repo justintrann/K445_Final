@@ -465,18 +465,25 @@ public class EditCustomer extends javax.swing.JFrame {
             
             SelectedCustomer = customer.getCustomerbyId(id);
             
-            jText_Id.setText(String.valueOf(SelectedCustomer.getId()));
-            jText_firstName.setText(SelectedCustomer.getFirstName());
-            jText_lastName.setText(SelectedCustomer.getLastName());
-            jText_Phone.setText(SelectedCustomer.getPhone());
-            jText_Address.setText(SelectedCustomer.getAddress());
-            jText_Email.setText(SelectedCustomer.getEmail());
-            jComboBox_Gender.setSelectedItem(SelectedCustomer.getGender());
+            if(SelectedCustomer != null)
+            {
+                jText_Id.setText(String.valueOf(SelectedCustomer.getId()));
+                jText_firstName.setText(SelectedCustomer.getFirstName());
+                jText_lastName.setText(SelectedCustomer.getLastName());
+                jText_Phone.setText(SelectedCustomer.getPhone());
+                jText_Address.setText(SelectedCustomer.getAddress());
+                jText_Email.setText(SelectedCustomer.getEmail());
+                jComboBox_Gender.setSelectedItem(SelectedCustomer.getGender());
             
-            // display the member image
+                // display the member image
             
-            byte[] image = SelectedCustomer.getPicture();
-            func.displayImage(125 , 80, image, "", jLabel_Image);            
+                byte[] image = SelectedCustomer.getPicture();
+                func.displayImage(125 , 80, image, "", jLabel_Image);
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(null, "No Customer With This ID Is Found","INvalid ID",3);
+            }              
             
         } catch (SQLException | NumberFormatException ex) {
             //Logger.getLogger(EditCustomer.class.getName()).log(Level.SEVERE, null, ex);
