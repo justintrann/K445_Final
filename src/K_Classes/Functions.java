@@ -20,7 +20,7 @@ import javax.swing.JLabel;
 public class Functions {
     
     //Quick Display Img
-    public void displayImage(int width, int height, String imgPath, JLabel label)
+    public void displayImage(int width, int height, byte[] imagebyte, String imgPath, JLabel label)
     {
         //get img
         ImageIcon imgIco = new ImageIcon(getClass().getResource(imgPath));
@@ -31,7 +31,8 @@ public class Functions {
 
     }
     //create a function to return a resultSet
-    public ResultSet getData(String query){
+    public ResultSet getData(String query)
+    {
         PreparedStatement ps;
         ResultSet rs = null;
         

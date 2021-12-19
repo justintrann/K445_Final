@@ -186,5 +186,18 @@ public class Customer {
         }
         
     }
-    
+    // get customer by id
+    public Customer getCustomerbyId(Integer _id) throws SQLException
+    {
+        Functions func = new Functions();
+        String query = "SELECT * FROM `customer` WHERE `id`="+_id;
+        ResultSet rs = func.getData(query);
+        if(rs.next())
+        {
+            return new Customer(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getBytes(8));
+        }
+        else{
+            return null;
+        }
+    }
 }
