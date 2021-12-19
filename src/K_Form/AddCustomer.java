@@ -304,6 +304,13 @@ public class AddCustomer extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton_addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_addActionPerformed
+        
+        //For the label down 'Name
+        jLabel3.setVisible(false);
+        jLabel5.setVisible(false);
+        jLabel8.setVisible(false);
+        jLabel12.setVisible(false);
+        
         String fname = jText_firstName.getText();
         String lname = jText_lastName.getText();
         String phone = jText_Phone.getText();

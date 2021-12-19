@@ -171,12 +171,9 @@ public class DeleteCustomer extends javax.swing.JFrame {
             // show a cònirmation message before deleting 
             int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this customer?","Comfirmation Box", JOptionPane.YES_NO_OPTION);
             
-            if (confirm == 1)
+            if (confirm == JOptionPane.YES_OPTION)
             {
                 customer.deleteCustomer(id);
-            }
-            else{
-                System.out.println("Cancel");
             }
         } 
         catch (Exception e) 
