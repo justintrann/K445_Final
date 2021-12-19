@@ -5,6 +5,11 @@
 package K_Classes;
 
 import java.awt.Image;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
@@ -25,5 +30,18 @@ public class Functions {
         label.setIcon(new ImageIcon(img));
 
     }
+    //create a function to return a resultSet
+    public ResultSet getData(String query){
+        PreparedStatement ps;
+        ResultSet rs = null;
         
+        try {
+            ps = DB.getConnection().prepareStatement(query);
+            rs = ps.executeQuery();
+            } 
+        catch (SQLException ex) {
+            Logger.getLogger(Functions.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return rs;
+    }
 }

@@ -125,13 +125,10 @@ public class Genres_class {
     {
        ArrayList<Genres_class> glist = new ArrayList<>();
        
-       String selectQuery = "SELECT * FROM `paint_genres`";
-       PreparedStatement ps;
-       ResultSet rs;
+       K_Classes.Functions func = new Functions();
         
         try {
-            ps = DB.getConnection().prepareStatement(selectQuery);
-            rs = ps.executeQuery();
+            ResultSet rs = func.getData("SELECT * FROM `paint_genres`");
             
             Genres_class genrc;
             

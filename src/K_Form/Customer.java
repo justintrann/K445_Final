@@ -6,44 +6,52 @@ package K_Form;
 
 import K_Classes.Functions;
 import java.awt.Color;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BorderFactory;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.border.Border;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Justin
  */
-public class Author extends javax.swing.JFrame {
+public class Customer extends javax.swing.JFrame {
 
     /**
      * Creates new form Genres
      */
-    
-    K_Classes.Author author = new K_Classes.Author();
-    
-    public Author() {
+    // create a customer object
+    K_Classes.Customer customer = new K_Classes.Customer();
+    // create a varible to store the profile piecture path
+    String imagePath = null;
+    public Customer() {
         initComponents();
         this.setLocationRelativeTo(null);
         
         //Border around the form
-        Border panelHeaderBorder = BorderFactory.createMatteBorder(3, 3, 3, 3, new Color(1, 50, 67));
+        Border panelHeaderBorder = BorderFactory.createMatteBorder(3, 3, 3, 3, new Color(1, 152, 117));
         jPanel1.setBorder(panelHeaderBorder);
         
         //Display Img
         K_Classes.Functions func = new Functions();
-        func.displayImage(70 , 70, "/K_Image/3_notepad.png", jLabel1_header);
-        
-        //jTable
-        jTable.getTableHeader().setOpaque(false);
-        
+        func.displayImage(70 , 70, "/K_Image/customer.png", jLabel1_header);
+                
         //For the label down 'Name
         jLabel3.setVisible(false);
         jLabel5.setVisible(false);
-        //j
-        populatejTablewithAuthors();
+        jLabel8.setVisible(false);
+        jLabel12.setVisible(false);
+        
     }
 
     /**
@@ -58,35 +66,37 @@ public class Author extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1_header = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jText_id = new javax.swing.JTextField();
         jText_firstName = new javax.swing.JTextField();
-        jButton_delete = new javax.swing.JButton();
         jButton_add = new javax.swing.JButton();
-        jButton_edit = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jText_lastName = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jText_Expertise = new javax.swing.JTextField();
+        jText_Phone = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea_About = new javax.swing.JTextArea();
+        jLabel8 = new javax.swing.JLabel();
+        jText_Email = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        jComboBox_Gender = new javax.swing.JComboBox<>();
+        jLabel10 = new javax.swing.JLabel();
+        jText_Address = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel_ImagePath = new javax.swing.JLabel();
+        jButton_SelectProfilePicture = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel1_header.setBackground(new java.awt.Color(1, 50, 67));
+        jLabel1_header.setBackground(new java.awt.Color(1, 152, 117));
         jLabel1_header.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1_header.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1_header.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1_header.setText("Manage Authors");
+        jLabel1_header.setText("Add Customer");
         jLabel1_header.setOpaque(true);
 
         jButton1.setText("BACK");
@@ -96,57 +106,17 @@ public class Author extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel1.setText("ID");
-
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setText("First Name");
-
-        jText_id.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jText_id.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jText_idActionPerformed(evt);
-            }
-        });
 
         jText_firstName.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
-        jButton_delete.setText("Delete");
-        jButton_delete.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton_deleteActionPerformed(evt);
-            }
-        });
-
-        jButton_add.setText("Add");
+        jButton_add.setText("Add New Customer");
         jButton_add.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton_addActionPerformed(evt);
             }
         });
-
-        jButton_edit.setText("Edit");
-        jButton_edit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton_editActionPerformed(evt);
-            }
-        });
-
-        jTable.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-
-            }
-        ));
-        jTable.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTableMouseClicked(evt);
-            }
-        });
-        jScrollPane1.setViewportView(jTable);
 
         jLabel3.setForeground(java.awt.Color.red);
         jLabel3.setText("* enter the first name");
@@ -156,7 +126,7 @@ public class Author extends javax.swing.JFrame {
             }
         });
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel4.setText("Last Name");
 
         jText_lastName.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -174,18 +144,56 @@ public class Author extends javax.swing.JFrame {
             }
         });
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel6.setText("Expertise");
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel6.setText("Phone Number");
 
-        jText_Expertise.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jText_Phone.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel7.setText("About");
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel7.setText("Email");
 
-        jTextArea_About.setColumns(20);
-        jTextArea_About.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jTextArea_About.setRows(5);
-        jScrollPane2.setViewportView(jTextArea_About);
+        jLabel8.setForeground(java.awt.Color.red);
+        jLabel8.setText("* enter the phone number");
+        jLabel8.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel8MouseClicked(evt);
+            }
+        });
+
+        jText_Email.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel9.setText("Gender");
+
+        jComboBox_Gender.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jComboBox_Gender.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Male", "Female" }));
+
+        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel10.setText("Address");
+
+        jText_Address.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel11.setText("Profile Picture");
+
+        jLabel12.setForeground(java.awt.Color.red);
+        jLabel12.setText("* enter the address");
+        jLabel12.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel12MouseClicked(evt);
+            }
+        });
+
+        jLabel_ImagePath.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
+        jLabel_ImagePath.setForeground(new java.awt.Color(0, 0, 204));
+        jLabel_ImagePath.setText("Choose profile picture");
+
+        jButton_SelectProfilePicture.setText("select profile");
+        jButton_SelectProfilePicture.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_SelectProfilePictureActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -193,41 +201,44 @@ public class Author extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(14, 14, 14)
-                .addComponent(jLabel1_header, javax.swing.GroupLayout.PREFERRED_SIZE, 640, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(44, 44, 44)
-                        .addComponent(jLabel1)
-                        .addGap(46, 46, 46)
-                        .addComponent(jText_id, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jText_lastName, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jText_firstName, javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jButton_add, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton_edit, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(35, 35, 35)
-                        .addComponent(jButton_delete, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(34, 34, 34))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jLabel7)
-                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel2)
-                                .addComponent(jText_firstName, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel4)
-                                .addComponent(jText_lastName)
-                                .addComponent(jLabel6)
-                                .addComponent(jText_Expertise)))
-                        .addGap(18, 18, 18)))
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel1_header, javax.swing.GroupLayout.PREFERRED_SIZE, 443, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jText_Phone, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jText_Email, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jComboBox_Gender, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jText_Address))
+                .addGap(225, 225, 225))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6)
+                            .addComponent(jButton_add, javax.swing.GroupLayout.PREFERRED_SIZE, 496, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel9)
+                            .addComponent(jLabel11)
+                            .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel_ImagePath)
+                                .addGap(111, 111, 111)
+                                .addComponent(jButton_SelectProfilePicture, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel10))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -235,40 +246,46 @@ public class Author extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel1_header, javax.swing.GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(33, 33, 33)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(jText_id, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(23, 23, 23)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jText_firstName, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel3)
-                        .addGap(13, 13, 13)
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jText_lastName, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jText_Expertise, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton_delete, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton_add, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton_edit, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1)))
+                .addGap(33, 33, 33)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jText_firstName, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jText_lastName, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jText_Phone, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jText_Address, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel12)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jComboBox_Gender, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(8, 8, 8)
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jText_Email, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(11, 11, 11)
+                .addComponent(jLabel11)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel_ImagePath)
+                    .addComponent(jButton_SelectProfilePicture))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+                .addComponent(jButton_add, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -276,7 +293,7 @@ public class Author extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 518, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -289,8 +306,10 @@ public class Author extends javax.swing.JFrame {
     private void jButton_addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_addActionPerformed
         String fname = jText_firstName.getText();
         String lname = jText_lastName.getText();
-        String expertise = jText_Expertise.getText();
-        String about = jTextArea_About.getText();
+        String phone = jText_Phone.getText();
+        String address = jText_Address.getText();
+        String gender = jComboBox_Gender.getSelectedItem().toString();
+        String email = jText_Email.getText();
         
         if(fname.isEmpty())
         {
@@ -300,119 +319,36 @@ public class Author extends javax.swing.JFrame {
         {
             jLabel5.setVisible(true);
         }
+        else if(phone.isEmpty())
+        {
+            jLabel8.setVisible(true);
+        }
+        else if(address.isEmpty())
+        {
+            jLabel12.setVisible(true);
+        }
         else
         {
-            //K_Classes.Genres_class ge = new K_Classes.Genres_class();
-            author.addAuthor(fname, lname, expertise, about);
-            
-            //Refresh after Add 
-            //populatejTablewithGenres();
+            byte[] img = null;
+            if(imagePath != null){               
+                try {
+                    Path path = Paths.get(imagePath);
+                    img = Files.readAllBytes(path);
+                    customer.addCustomer(fname, lname, phone, address, gender, email, img);
+                } catch (IOException ex) {
+                    Logger.getLogger(Customer.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Select a Profile Picture For This Customer","No Picture Selected",2);
+            }
         }
     }//GEN-LAST:event_jButton_addActionPerformed
-
-    private void jButton_editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_editActionPerformed
-        //
-        String fname = jText_firstName.getText();
-        String lname = jText_lastName.getText();
-        String expertise = jText_Expertise.getText();
-        String about = jTextArea_About.getText();
-        
-        if(fname.isEmpty())
-        {
-            jLabel3.setVisible(true);
-        }
-        else if(lname.isEmpty())
-        {
-            jLabel5.setVisible(true);
-        }
-        else
-        {
-            try
-            {
-                int id =Integer.parseInt(jText_id.getText());
-                author.editAuthor(id, fname, lname, expertise, about);
-            
-            //Refresh after Add 
-            //populatejTablewithGenres();
-            }
-            catch(NumberFormatException ex)
-            {
-                JOptionPane.showMessageDialog(null, "Invalid ID - " + ex.getMessage(),"Error",3);
-            }
-        }
-    }//GEN-LAST:event_jButton_editActionPerformed
-
-    private void jTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableMouseClicked
-        int index = jTable.getSelectedRow();
-        
-        //Get Values
-        String id = jTable.getValueAt(index, 0).toString();
-        String firstName = jTable.getValueAt(index, 1).toString();
-        String lastName = jTable.getValueAt(index, 2).toString();
-        String expertise = jTable.getValueAt(index, 3).toString();
-        String about = jTable.getValueAt(index, 4).toString();
-        
-        //Show
-        jText_id.setText(id);
-        jText_firstName.setText(firstName);
-        jText_lastName.setText(lastName);
-        jText_Expertise.setText(expertise);
-        jTextArea_About.setText(about);
-        
-    }//GEN-LAST:event_jTableMouseClicked
-    
-    //GET from DB to jTable
-    public void populatejTablewithAuthors(){
-        ArrayList<K_Classes.Author> authorsList = K_Classes.Author.authorsList();
-        
-        //Column
-        String[] colName = {"ID", "F-Name", "L-Name", "Expertise", "About"};
-        
-        //Row
-        Object[][] rows = new Object[authorsList.size()][colName.length];
-        
-        for (int i=0; i<authorsList.size(); i++)
-        {
-            rows[i][0] = authorsList.get(i).getId();
-            rows[i][1] = authorsList.get(i).getFirstName();
-            rows[i][2] = authorsList.get(i).getLastName();
-            rows[i][3] = authorsList.get(i).getField_Of_Expertise();
-            rows[i][4] = authorsList.get(i).getAbout();
-        }
-        
-        DefaultTableModel model = new DefaultTableModel(rows,colName);
-        jTable.setModel(model);
-    }
-    
-    
+   
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
         // Hide Label on Click
         jLabel3.setVisible(false);
     }//GEN-LAST:event_jLabel3MouseClicked
-
-    private void jButton_deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_deleteActionPerformed
-        
-        try
-            {
-                int id =Integer.parseInt(jText_id.getText());
-                author.deleteAuthor(id);
-                
-                //Refresh after Add 
-                //populatejTablewithGenres();
-                
-                //Clear after hit
-                jText_id.setText("");
-                jText_firstName.setText("");
-                jText_lastName.setText("");
-                jText_Expertise.setText("");
-                jTextArea_About.setText("");
-                
-            }
-            catch(NumberFormatException ex)
-            {
-                JOptionPane.showMessageDialog(null, "Invalid ID - " + ex.getMessage(),"Error",3);
-            }
-    }//GEN-LAST:event_jButton_deleteActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         this.dispose();
@@ -423,13 +359,34 @@ public class Author extends javax.swing.JFrame {
         jLabel5.setVisible(false);
     }//GEN-LAST:event_jLabel5MouseClicked
 
-    private void jText_idActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jText_idActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jText_idActionPerformed
-
     private void jText_lastNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jText_lastNameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jText_lastNameActionPerformed
+
+    private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseClicked
+        jLabel8.setVisible(false);
+    }//GEN-LAST:event_jLabel8MouseClicked
+
+    private void jLabel12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MouseClicked
+        jLabel12.setVisible(false);
+    }//GEN-LAST:event_jLabel12MouseClicked
+
+    private void jButton_SelectProfilePictureActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_SelectProfilePictureActionPerformed
+        //select picture from the computer
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Select Profile Picture");
+        fileChooser.setCurrentDirectory(new File("C:\\Image"));
+        
+        FileNameExtensionFilter extensionFilter = new FileNameExtensionFilter("Image", ".png", ".jpg", ".jpeg");
+        fileChooser.addChoosableFileFilter(extensionFilter);
+        
+        int fileState = fileChooser.showSaveDialog(null);
+        if(fileState == JFileChooser.APPROVE_OPTION){
+            String path = fileChooser.getSelectedFile().getAbsolutePath();
+            jLabel_ImagePath.setText(path);
+            imagePath = path;
+        }
+    }//GEN-LAST:event_jButton_SelectProfilePictureActionPerformed
 
     /**
      * @param args the command line arguments
@@ -476,17 +433,19 @@ public class Author extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Author().setVisible(true);
+                new Customer().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton_SelectProfilePicture;
     private javax.swing.JButton jButton_add;
-    private javax.swing.JButton jButton_delete;
-    private javax.swing.JButton jButton_edit;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JComboBox<String> jComboBox_Gender;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel1_header;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -494,14 +453,14 @@ public class Author extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel jLabel_ImagePath;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable;
-    private javax.swing.JTextArea jTextArea_About;
-    private javax.swing.JTextField jText_Expertise;
+    private javax.swing.JTextField jText_Address;
+    private javax.swing.JTextField jText_Email;
+    private javax.swing.JTextField jText_Phone;
     private javax.swing.JTextField jText_firstName;
-    private javax.swing.JTextField jText_id;
     private javax.swing.JTextField jText_lastName;
     // End of variables declaration//GEN-END:variables
 }

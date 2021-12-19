@@ -158,13 +158,10 @@ public class Author {
     {
        ArrayList<Author> aList = new ArrayList<>();
        
-       String selectQuery = "SELECT * FROM `author`";
-       PreparedStatement ps;
-       ResultSet rs;
+       K_Classes.Functions func = new Functions();
         
         try {
-            ps = DB.getConnection().prepareStatement(selectQuery);
-            rs = ps.executeQuery();
+            ResultSet rs = func.getData("SELECT * FROM `author`");
             
             Author author;
             
