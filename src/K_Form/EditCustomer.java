@@ -447,7 +447,7 @@ public class EditCustomer extends javax.swing.JFrame {
         int fileState = fileChooser.showSaveDialog(null);
         if(fileState == JFileChooser.APPROVE_OPTION){
             String path = fileChooser.getSelectedFile().getAbsolutePath();
-         //   jLabel_ImagePath.setText(path);
+            jLabel_ImagePath.setText(path);
             imagePath = path;
         }
     }//GEN-LAST:event_jButton_SelectProfilePictureActionPerformed
