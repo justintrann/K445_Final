@@ -23,7 +23,15 @@ public class Functions {
     public void displayImage(int width, int height, byte[] imagebyte, String imgPath, JLabel label)
     {
         //get img
-        ImageIcon imgIco = new ImageIcon(getClass().getResource(imgPath));
+        ImageIcon imgIco;
+        if(imagebyte!= null) // get image using bytes
+        {
+            imgIco = new ImageIcon(imagebyte);
+        }
+        else // get image using path
+        {
+            imgIco = new ImageIcon(getClass().getResource(imgPath));
+        }      
         //set true scale
         Image img = imgIco.getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
         

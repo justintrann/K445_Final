@@ -30,7 +30,7 @@ public class Login extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         
         K_Classes.Functions func = new Functions();
-        func.displayImage(jLabel1.getWidth(),jLabel1.getHeight(), "/K_Image/1_login.png", jLabel1);
+        func.displayImage(jLabel1.getWidth(),jLabel1.getHeight(),null, "/K_Image/1_login.png", jLabel1);
         
     }
 

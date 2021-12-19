@@ -36,7 +36,7 @@ public class Dashboard extends javax.swing.JFrame {
         //center form
         this.setLocationRelativeTo(null);
         
-        func.displayImage(jLabel1.getWidth(),jLabel1.getHeight(), "/K_Image/2_dashboard.png", jLabel1);
+        func.displayImage(jLabel1.getWidth(),jLabel1.getHeight(),null, "/K_Image/2_dashboard.png", jLabel1);
         
         
         

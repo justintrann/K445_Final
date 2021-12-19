@@ -35,7 +35,7 @@ public class Genres extends javax.swing.JFrame {
         
         //Display Img
         K_Classes.Functions func = new Functions();
-        func.displayImage(70 , 70, "/K_Image/2_dashboard.png", jLabel1_header);
+        func.displayImage(70 , 70,null, "/K_Image/2_dashboard.png", jLabel1_header);
         
         //jTable
         jTable1.getTableHeader().setOpaque(false);

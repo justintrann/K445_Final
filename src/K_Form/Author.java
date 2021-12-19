@@ -34,7 +34,7 @@ public class Author extends javax.swing.JFrame {
         
         //Display Img
         K_Classes.Functions func = new Functions();
-        func.displayImage(70 , 70, "/K_Image/3_notepad.png", jLabel1_header);
+        func.displayImage(70 , 70,null, "/K_Image/3_notepad.png", jLabel1_header);
         
         //jTable
         jTable.getTableHeader().setOpaque(false);

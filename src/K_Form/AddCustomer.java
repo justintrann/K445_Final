@@ -44,7 +44,7 @@ public class AddCustomer extends javax.swing.JFrame {
         
         //Display Img
         K_Classes.Functions func = new Functions();
-        func.displayImage(70 , 70, "/K_Image/customer.png", jLabel1_header);
+        func.displayImage(70 , 70, null, "/K_Image/customer.png", jLabel1_header);
                 
         //For the label down 'Name
         jLabel3.setVisible(false);
