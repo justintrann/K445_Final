@@ -449,6 +449,9 @@ public class EditCustomer extends javax.swing.JFrame {
             String path = fileChooser.getSelectedFile().getAbsolutePath();
             jLabel_ImagePath.setText(path);
             imagePath = path;
+            
+            //display the image
+            func.displayImage(125 , 80, null, path, jLabel_Image);
         }
     }//GEN-LAST:event_jButton_SelectProfilePictureActionPerformed
 
