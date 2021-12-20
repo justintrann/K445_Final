@@ -128,10 +128,14 @@ public class Dashboard extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jButton_cust_update = new javax.swing.JButton();
+        jButton_cust_del = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        jButton_cust_add = new javax.swing.JButton();
+        jLabel12 = new javax.swing.JLabel();
+        jButton_man_genres = new javax.swing.JButton();
+        jButton_man_author = new javax.swing.JButton();
+        jLabel13 = new javax.swing.JLabel();
         j1 = new javax.swing.JPanel();
         j1_header = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -181,20 +185,64 @@ public class Dashboard extends javax.swing.JFrame {
         );
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 3, 24)); // NOI18N
-        jLabel9.setText("Paintings");
+        jLabel9.setText("Customers");
 
-        jButton1.setText("Update");
-        jButton1.setContentAreaFilled(false);
+        jButton_cust_update.setText("Update");
+        jButton_cust_update.setContentAreaFilled(false);
+        jButton_cust_update.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_cust_updateActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Delete");
-        jButton2.setContentAreaFilled(false);
+        jButton_cust_del.setText("Delete");
+        jButton_cust_del.setContentAreaFilled(false);
+        jButton_cust_del.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_cust_delActionPerformed(evt);
+            }
+        });
 
-        jButton3.setText("jButton1");
+        jButton3.setText("All Customers");
         jButton3.setContentAreaFilled(false);
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
-        jButton4.setText("Add");
-        jButton4.setContentAreaFilled(false);
-        jButton4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton_cust_add.setText("Add");
+        jButton_cust_add.setContentAreaFilled(false);
+        jButton_cust_add.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton_cust_add.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_cust_addActionPerformed(evt);
+            }
+        });
+
+        jLabel12.setFont(new java.awt.Font("Tahoma", 3, 24)); // NOI18N
+        jLabel12.setText("Genres");
+
+        jButton_man_genres.setText("Manage Genres");
+        jButton_man_genres.setContentAreaFilled(false);
+        jButton_man_genres.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton_man_genres.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_man_genresActionPerformed(evt);
+            }
+        });
+
+        jButton_man_author.setText("Manage Authors");
+        jButton_man_author.setContentAreaFilled(false);
+        jButton_man_author.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton_man_author.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_man_authorActionPerformed(evt);
+            }
+        });
+
+        jLabel13.setFont(new java.awt.Font("Tahoma", 3, 24)); // NOI18N
+        jLabel13.setText("Authors");
 
         javax.swing.GroupLayout j_menuLayout = new javax.swing.GroupLayout(j_menu);
         j_menu.setLayout(j_menuLayout);
@@ -202,32 +250,50 @@ public class Dashboard extends javax.swing.JFrame {
             j_menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(Header, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(j_menuLayout.createSequentialGroup()
-                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(j_menuLayout.createSequentialGroup()
-                .addGap(32, 32, 32)
                 .addGroup(j_menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(j_menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(j_menuLayout.createSequentialGroup()
+                            .addGap(32, 32, 32)
+                            .addComponent(jButton_man_author, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(j_menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(j_menuLayout.createSequentialGroup()
+                            .addGap(32, 32, 32)
+                            .addComponent(jButton_man_genres, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(j_menuLayout.createSequentialGroup()
+                        .addGap(32, 32, 32)
+                        .addGroup(j_menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButton_cust_add, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton_cust_del, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton_cust_update, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         j_menuLayout.setVerticalGroup(
             j_menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(j_menuLayout.createSequentialGroup()
                 .addComponent(Header, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel12)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton_man_genres, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel13)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton_man_author, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButton_cust_add, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButton_cust_update, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButton_cust_del, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         j1.setBackground(new java.awt.Color(215, 234, 243));
@@ -454,6 +520,36 @@ public class Dashboard extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton_man_genresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_man_genresActionPerformed
+        Genres genrForm = new Genres();
+        genrForm.setVisible(true);
+    }//GEN-LAST:event_jButton_man_genresActionPerformed
+
+    private void jButton_man_authorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_man_authorActionPerformed
+        Author authrForm = new Author();
+        authrForm.setVisible(true);
+    }//GEN-LAST:event_jButton_man_authorActionPerformed
+
+    private void jButton_cust_addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_cust_addActionPerformed
+        AddCustomer addCustForm = new AddCustomer();
+        addCustForm.setVisible(true);
+    }//GEN-LAST:event_jButton_cust_addActionPerformed
+
+    private void jButton_cust_updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_cust_updateActionPerformed
+        EditCustomer editCustForm = new EditCustomer();
+        editCustForm.setVisible(true);
+    }//GEN-LAST:event_jButton_cust_updateActionPerformed
+
+    private void jButton_cust_delActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_cust_delActionPerformed
+        DeleteCustomer delCustForm = new DeleteCustomer();
+        delCustForm.setVisible(true);
+    }//GEN-LAST:event_jButton_cust_delActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        ListCustomer listCustForm = new ListCustomer();
+        listCustForm.setVisible(true);
+    }//GEN-LAST:event_jButton3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -499,13 +595,17 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JPanel j3_header;
     private javax.swing.JPanel j4;
     private javax.swing.JPanel j4_header;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton_cust_add;
+    private javax.swing.JButton jButton_cust_del;
+    private javax.swing.JButton jButton_cust_update;
+    private javax.swing.JButton jButton_man_author;
+    private javax.swing.JButton jButton_man_genres;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

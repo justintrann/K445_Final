@@ -7,6 +7,7 @@ package K_Classes;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -133,7 +134,7 @@ public class Customer {
     //Edit
     public void editCustomer(Integer _id, String _fname,String _lname, String _phone, String _address, String _gender, String _email, byte[] _picture)
     {
-        String editQuery = "UPDATE `customer` SET `firstName`=?,`lastName`=?',`phone`=?,`address`=?,`gender`=?,`email`=?,`picture`=? WHERE `id` =?";
+        String editQuery = "UPDATE customer SET firstName=?, lastName=?, phone=?, address=?, gender=?, email=?, picture=? WHERE id =?";
         
         try {
             PreparedStatement ps = DB.getConnection().prepareStatement(editQuery);
@@ -199,4 +200,30 @@ public class Customer {
             return null;
         }
     }
+    
+      //For jTable arrayList. GET from DB to jTable
+    public static ArrayList<Customer> customersList()
+    {
+       ArrayList<Customer> mList = new ArrayList<>();
+       
+       K_Classes.Functions func = new Functions();
+        
+        try {
+            ResultSet rs = func.getData("SELECT * FROM `customer`");
+            
+            Customer customer;
+            
+            while (rs.next())
+            {
+                customer = new Customer(rs.getInt("id"), rs.getString("firstName"), rs.getString("lastName"), rs.getString("phone"),
+                        rs.getString("address"),rs.getString("gender"), rs.getString("email"), rs.getBytes("picture"));
+                mList.add(customer);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Customer.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            
+      return mList;
+    }
+    
 }
