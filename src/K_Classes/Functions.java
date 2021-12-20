@@ -5,13 +5,16 @@
 package K_Classes;
 
 import java.awt.Image;
+import java.io.File;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -62,5 +65,26 @@ public class Functions {
             Logger.getLogger(Functions.class.getName()).log(Level.SEVERE, null, ex);
         }
         return rs;
+    }
+    
+    //Show img path
+    public String selectImage()
+    {
+         //select picture from the computer
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Select Profile Picture");
+        fileChooser.setCurrentDirectory(new File("C:\\Image"));
+        
+        FileNameExtensionFilter extensionFilter = new FileNameExtensionFilter("Image", ".png", ".jpg", ".jpeg");
+        fileChooser.addChoosableFileFilter(extensionFilter);
+        
+        int fileState = fileChooser.showSaveDialog(null);
+        String path = "";
+        
+        if(fileState == JFileChooser.APPROVE_OPTION)
+        {
+            path = fileChooser.getSelectedFile().getAbsolutePath();
+        }
+        return path;
     }
 }

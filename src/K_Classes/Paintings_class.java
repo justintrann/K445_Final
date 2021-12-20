@@ -2,7 +2,7 @@ package K_Classes;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.Date;
+import java.sql.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -115,32 +115,37 @@ public class Paintings_class {
     }
     
     //Insert Function for AddPainting Form
-    public void addCustomer(String _fname,String _lname, String _phone, String _address, String _gender, String _email, byte[] _picture)
+    public void addPainting(String _codeid, String _name, Integer _author_id, Integer _genre_id, Integer _qty, double _price,
+            Date _date_received, String _descr, byte[] _pic)
     {
-        String insertQuery = "INSERT INTO `customer`(`firstName`, `lastName`, `phone`, `address`, `gender`, `email`, `picture`) VALUES (?,?,?,?,?,?,?)";
+        String insertQuery = "INSERT INTO `painting`(`codeid`, `name`, `author_id`, `genre_id`, `qty`, `price`, `date_received`, `descr`, `pic`) "
+                + "VALUES (?,?,?,?,?,?,?,?,?)";
         
         try {
             PreparedStatement ps = DB.getConnection().prepareStatement(insertQuery);
             
-            ps.setString(1, _fname);
-            ps.setString(2, _lname);
-            ps.setString(3, _phone);
-            ps.setString(4, _address);
-            ps.setString(5, _gender);
-            ps.setString(6, _email);
-            ps.setBytes(7, _picture);
+            ps.setString(1, _codeid);
+            ps.setString(2, _name);
+            ps.setInt(3, _author_id);
+            ps.setInt(4, _genre_id);
+            ps.setInt(5, _qty);
+            ps.setDouble(6, _price);
+            ps.setDate(7, _date_received);
+            ps.setString(8, _descr);
+            ps.setBytes(9, _pic);
+            
             
             if(ps.executeUpdate() != 0)
             {
-                JOptionPane.showMessageDialog(null, "Successfully","New Customer",1);
+                JOptionPane.showMessageDialog(null, "Successfully","New Painting",1);
             }
             else
             {
-                JOptionPane.showMessageDialog(null, "Failed","New Customer",2);
+                JOptionPane.showMessageDialog(null, "Failed","New Painting",2);
             }
             
         } catch (SQLException ex) {
-            Logger.getLogger(Customer.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Paintings_class.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

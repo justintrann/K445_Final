@@ -6,10 +6,15 @@ package K_Form;
 
 import K_Classes.Customer;
 import K_Classes.Functions;
+import static K_Form.AuthorList.jTable;
 import java.awt.Color;
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.sql.Date;
 import javax.swing.BorderFactory;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -80,6 +85,7 @@ public class AddPainting extends javax.swing.JFrame {
         jComboBox_genre = new javax.swing.JComboBox<>();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
         jSpinner_qty = new javax.swing.JSpinner();
+        jButton_selectAuthor = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -153,8 +159,20 @@ public class AddPainting extends javax.swing.JFrame {
         });
 
         jButton3.setText("ADD");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jSpinner_qty.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        jButton_selectAuthor.setText("LIST");
+        jButton_selectAuthor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_selectAuthorActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -194,15 +212,18 @@ public class AddPainting extends javax.swing.JFrame {
                                 .addGap(279, 279, 279))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(jText_author)
-                                        .addComponent(jText_name)
-                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                            .addGap(73, 73, 73)
-                                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addComponent(jComboBox_genre, 0, 261, Short.MAX_VALUE))
-                                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jText_author)
+                                            .addComponent(jText_name)
+                                            .addComponent(jComboBox_genre, 0, 261, Short.MAX_VALUE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jButton_selectAuthor, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(134, 134, 134)
+                                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jText_description, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -234,11 +255,17 @@ public class AddPainting extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jText_author, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel15)))
+                            .addComponent(jLabel15)
+                            .addComponent(jButton_selectAuthor, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jText_description))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel_Image, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel_Image, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel_ImagePath, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton_choosePic))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel16)
@@ -254,13 +281,11 @@ public class AddPainting extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel19)
-                            .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jLabel_ImagePath, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton_choosePic, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(21, 21, 21))
+                            .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addGap(42, 42, 42))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -273,7 +298,7 @@ public class AddPainting extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 464, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -289,24 +314,49 @@ public class AddPainting extends javax.swing.JFrame {
 
     private void jButton_choosePicActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_choosePicActionPerformed
         //select picture from the computer
-        JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setDialogTitle("Select Profile Picture");
-        fileChooser.setCurrentDirectory(new File("C:\\Image"));
-        
-        FileNameExtensionFilter extensionFilter = new FileNameExtensionFilter("Image", ".png", ".jpg", ".jpeg");
-        fileChooser.addChoosableFileFilter(extensionFilter);
-        
-        int fileState = fileChooser.showSaveDialog(null);
-        if(fileState == JFileChooser.APPROVE_OPTION){
-            String path = fileChooser.getSelectedFile().getAbsolutePath();
-            jLabel_ImagePath.setText(path);
-           
-            
-            //display the image
-            func.displayImage(140 , 100, null, path, jLabel_Image);
-        }
+       String path = func.selectImage();
+       jLabel_ImagePath.setText(path);
+       
+       //Display img
+       func.displayImage(180, 110, null, path, jLabel_Image);
     }//GEN-LAST:event_jButton_choosePicActionPerformed
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        //Let's get value first
+        String codeid = jText_Id.getText();
+        String name = jText_name.getText();
+        String descr = jText_description.getText();
+        
+        Integer author_id = 0;
+        Integer genre_id = 0;
+        Integer qty = Integer.parseInt(jSpinner_qty.getValue().toString());
+        
+        Date received_date;
+        Double price = Double.parseDouble(jText_price.getText());
+        
+        //Get value img
+        //Path path = Paths.get(imagePath);
+        //byte[]] img = Files.readAllBytes(path);
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    //This button is for show AuthorList.java
+    private void jButton_selectAuthorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_selectAuthorActionPerformed
+        AuthorList aList = new AuthorList();
+        aList.setVisible(true);
+        //jTable from AuthorList.java
+        int index = aList.jTable.getSelectedRow();
+        String id = jTable.getValueAt(index, 0).toString();
+        String firstName = aList.jTable.getValueAt(index, 1).toString();
+        String lastName = aList.jTable.getValueAt(index, 2).toString();
+        
+        jText_author.setText(firstName + " " + lastName);
+    }//GEN-LAST:event_jButton_selectAuthorActionPerformed
+
+    public static void displayAuthorData(int id, String fullName)
+    {
+        jText_author.setText(fullName);
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -347,6 +397,7 @@ public class AddPainting extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton_choosePic;
+    private javax.swing.JButton jButton_selectAuthor;
     private javax.swing.JComboBox<String> jComboBox_genre;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel13;
@@ -363,7 +414,7 @@ public class AddPainting extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSpinner jSpinner_qty;
     private javax.swing.JTextField jText_Id;
-    private javax.swing.JTextField jText_author;
+    private static javax.swing.JTextField jText_author;
     private javax.swing.JTextField jText_description;
     private javax.swing.JTextField jText_name;
     private javax.swing.JTextField jText_price;

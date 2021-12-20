@@ -440,23 +440,14 @@ public class EditCustomer extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel12MouseClicked
 
     private void jButton_SelectProfilePictureActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_SelectProfilePictureActionPerformed
-        //select picture from the computer
-        JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setDialogTitle("Select Profile Picture");
-        fileChooser.setCurrentDirectory(new File("C:\\Image"));
         
-        FileNameExtensionFilter extensionFilter = new FileNameExtensionFilter("Image", ".png", ".jpg", ".jpeg");
-        fileChooser.addChoosableFileFilter(extensionFilter);
-        
-        int fileState = fileChooser.showSaveDialog(null);
-        if(fileState == JFileChooser.APPROVE_OPTION){
-            String path = fileChooser.getSelectedFile().getAbsolutePath();
+            String path =func.selectImage();
             jLabel_ImagePath.setText(path);
             imagePath = path;
             
             //display the image
             func.displayImage(125 , 80, null, path, jLabel_Image);
-        }
+        
     }//GEN-LAST:event_jButton_SelectProfilePictureActionPerformed
 
     private void jButton_SearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_SearchActionPerformed
