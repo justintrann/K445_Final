@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -45,6 +46,8 @@ public class Genres_class {
     public void setName(String name) {
         this.name = name;
     }
+    
+    K_Classes.Functions func = new Functions();
     
     //Insert Function for Genres Form
     public void addGenres(String _name)
@@ -124,9 +127,7 @@ public class Genres_class {
     public static ArrayList<Genres_class> genresList()
     {
        ArrayList<Genres_class> glist = new ArrayList<>();
-       
-       K_Classes.Functions func = new Functions();
-        
+        K_Classes.Functions func = new Functions();
         try {
             ResultSet rs = func.getData("SELECT * FROM `paint_genres`");
             
@@ -144,7 +145,26 @@ public class Genres_class {
       return glist;
     }
     
-
+    public HashMap<String, Integer> getGenresMap()
+    {
+        HashMap<String, Integer> map = new HashMap<>();
+        
+        try {
+            ResultSet rs = func.getData("SELECT * FROM `paint_genres`");
+            
+            Genres_class genrc;
+            
+            while (rs.next())
+            {
+                genrc = new Genres_class(rs.getInt("id"), rs.getString("name"));
+                map.put(genrc.getName(), genrc.getId());
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Genres_class.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return map;
+    }
     
     
     

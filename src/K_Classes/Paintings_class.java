@@ -18,7 +18,7 @@ public class Paintings_class {
     private Integer genre_id;
     private Integer qty;
     private double price;
-    private Date date_received;
+    private String date_received;
     private String descr;
     private byte[] pic;
     
@@ -26,7 +26,7 @@ public class Paintings_class {
     public Paintings_class(){}
     
     public Paintings_class(String _codeid, String _name, Integer _author_id, Integer _genre_id, Integer _qty, double _price,
-            Date _date_received, String _descr, byte[] _pic)
+            String _date_received, String _descr, byte[] _pic)
     {
         this.codeid = _codeid;
         this.name = _name;
@@ -64,7 +64,7 @@ public class Paintings_class {
         return price;
     }
 
-    public Date getDate_received() {
+    public String getDate_received() {
         return date_received;
     }
 
@@ -102,7 +102,7 @@ public class Paintings_class {
         this.price = price;
     }
 
-    public void setDate_received(Date date_received) {
+    public void setDate_received(String date_received) {
         this.date_received = date_received;
     }
 
@@ -116,9 +116,9 @@ public class Paintings_class {
     
     //Insert Function for AddPainting Form
     public void addPainting(String _codeid, String _name, Integer _author_id, Integer _genre_id, Integer _qty, double _price,
-            Date _date_received, String _descr, byte[] _pic)
+            String _date_received, String _descr, byte[] _pic)
     {
-        String insertQuery = "INSERT INTO `painting`(`codeid`, `name`, `author_id`, `genre_id`, `qty`, `price`, `date_received`, `descr`, `pic`) "
+        String insertQuery = "INSERT INTO painting (codeid, name, author_id, genre_id, qty, price, date_received, descr, pic) "
                 + "VALUES (?,?,?,?,?,?,?,?,?)";
         
         try {
@@ -130,7 +130,7 @@ public class Paintings_class {
             ps.setInt(4, _genre_id);
             ps.setInt(5, _qty);
             ps.setDouble(6, _price);
-            ps.setDate(7, _date_received);
+            ps.setString(7, _date_received);
             ps.setString(8, _descr);
             ps.setBytes(9, _pic);
             

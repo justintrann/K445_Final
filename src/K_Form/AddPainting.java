@@ -6,15 +6,19 @@ package K_Form;
 
 import K_Classes.Customer;
 import K_Classes.Functions;
-import static K_Form.AuthorList.jTable;
 import java.awt.Color;
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -34,6 +38,9 @@ public class AddPainting extends javax.swing.JFrame {
     
     K_Classes.Customer customer = new K_Classes.Customer();
     K_Classes.Functions func = new Functions();
+    K_Classes.Genres_class genre = new K_Classes.Genres_class();
+    HashMap<String, Integer> genresMap = genre.getGenresMap();
+    String imagePath = "";
     
     public AddPainting() {
         initComponents();
@@ -49,6 +56,7 @@ public class AddPainting extends javax.swing.JFrame {
         Border panelHeaderBorder = BorderFactory.createMatteBorder(3, 3, 3, 3, new Color(1, 152, 117));
         jPanel1.setBorder(panelHeaderBorder);
         
+        fillJcomboboxWGenres();
         //Show Customer in jTable
         
     }
@@ -86,6 +94,9 @@ public class AddPainting extends javax.swing.JFrame {
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
         jSpinner_qty = new javax.swing.JSpinner();
         jButton_selectAuthor = new javax.swing.JButton();
+        jLabel21 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        jButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -118,9 +129,10 @@ public class AddPainting extends javax.swing.JFrame {
         jLabel15.setText("Author:");
 
         jText_author.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jText_author.setEnabled(false);
 
         jLabel16.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel16.setText("Genre:");
+        jLabel16.setText("ID");
 
         jLabel17.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel17.setText("Qty:");
@@ -165,12 +177,31 @@ public class AddPainting extends javax.swing.JFrame {
             }
         });
 
+        jComboBox_genre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox_genreActionPerformed(evt);
+            }
+        });
+
         jSpinner_qty.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         jButton_selectAuthor.setText("LIST");
         jButton_selectAuthor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton_selectAuthorActionPerformed(evt);
+            }
+        });
+
+        jLabel21.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel21.setText("Genre:");
+
+        jLabel22.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel22.setText("ID");
+
+        jButton4.setText("CLEAR");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
             }
         });
 
@@ -187,7 +218,6 @@ public class AddPainting extends javax.swing.JFrame {
                         .addComponent(jLabel1_header, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel16)
                             .addComponent(jLabel17)
                             .addComponent(jLabel18)
                             .addComponent(jLabel19))
@@ -202,7 +232,8 @@ public class AddPainting extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel14)
                             .addComponent(jLabel15)
-                            .addComponent(jLabel13))
+                            .addComponent(jLabel13)
+                            .addComponent(jLabel21))
                         .addGap(26, 26, 26)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -217,15 +248,25 @@ public class AddPainting extends javax.swing.JFrame {
                                             .addComponent(jText_author)
                                             .addComponent(jText_name)
                                             .addComponent(jComboBox_genre, 0, 261, Short.MAX_VALUE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jButton_selectAuthor, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jLabel16))
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 6, Short.MAX_VALUE)
+                                                .addComponent(jLabel22))))
                                     .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(134, 134, 134)
+                                        .addGap(1, 1, 1)
+                                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jText_description, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jButton_selectAuthor, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jText_description, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                             .addComponent(jButton_choosePic, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
@@ -256,7 +297,8 @@ public class AddPainting extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jText_author, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel15)
-                            .addComponent(jButton_selectAuthor, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jButton_selectAuthor, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel22)))
                     .addComponent(jText_description))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -267,9 +309,10 @@ public class AddPainting extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton_choosePic))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jComboBox_genre, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel16)
-                            .addComponent(jComboBox_genre, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel21))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel17)
@@ -283,7 +326,9 @@ public class AddPainting extends javax.swing.JFrame {
                             .addComponent(jLabel19)
                             .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(42, 42, 42))
         );
@@ -319,24 +364,35 @@ public class AddPainting extends javax.swing.JFrame {
        
        //Display img
        func.displayImage(180, 110, null, path, jLabel_Image);
+       imagePath = path;
     }//GEN-LAST:event_jButton_choosePicActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        //Let's get value first
-        String codeid = jText_Id.getText();
-        String name = jText_name.getText();
-        String descr = jText_description.getText();
+     
+            //Let's get value first
+            String codeid = jText_Id.getText();
+            String name = jText_name.getText();
+            String descr = jText_description.getText();
+            
+            Integer author_id = Integer.parseInt(jLabel22.getText());
+            Integer genre_id = Integer.parseInt(jLabel21.getText());;
+            Integer qty = Integer.parseInt(jSpinner_qty.getValue().toString());
+            
+            Double price = Double.parseDouble(jText_price.getText());
+            
+            //Get value img
+        try{    
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            String received_date = dateFormat.format(jDateChooser1.getDate());
+            Path path = Paths.get(imagePath);
+            byte[] img = Files.readAllBytes(path);
+            K_Classes.Paintings_class paints = new K_Classes.Paintings_class();
+            paints.addPainting(codeid, name, author_id, genre_id, qty, price, received_date, descr, img);
+        } catch (IOException ex) {
+            Logger.getLogger(AddPainting.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
-        Integer author_id = 0;
-        Integer genre_id = 0;
-        Integer qty = Integer.parseInt(jSpinner_qty.getValue().toString());
         
-        Date received_date;
-        Double price = Double.parseDouble(jText_price.getText());
-        
-        //Get value img
-        //Path path = Paths.get(imagePath);
-        //byte[]] img = Files.readAllBytes(path);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     //This button is for show AuthorList.java
@@ -344,17 +400,49 @@ public class AddPainting extends javax.swing.JFrame {
         AuthorList aList = new AuthorList();
         aList.setVisible(true);
         //jTable from AuthorList.java
-        int index = aList.jTable.getSelectedRow();
-        String id = jTable.getValueAt(index, 0).toString();
-        String firstName = aList.jTable.getValueAt(index, 1).toString();
-        String lastName = aList.jTable.getValueAt(index, 2).toString();
         
-        jText_author.setText(firstName + " " + lastName);
     }//GEN-LAST:event_jButton_selectAuthorActionPerformed
+
+    private void jComboBox_genreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox_genreActionPerformed
+        // Display ID
+        try{
+        int genreID = genresMap.get(jComboBox_genre.getSelectedItem().toString());
+        jLabel16.setText(String.valueOf(genreID));
+        }catch (Exception ex)
+        {
+            System.out.println("Error" + ex.getMessage());
+        }
+    }//GEN-LAST:event_jComboBox_genreActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        jText_Id.setText("");
+        jText_author.setText("");
+        jText_description.setText("");
+        jText_name.setText("");
+        jText_price.setText("");
+        jDateChooser1.setDate(new java.util.Date());
+        jSpinner_qty.setValue(0);
+        
+        jLabel22.setText("ID");
+        jComboBox_genre.setSelectedIndex(0);
+        
+        jLabel_Image.setIcon(null);
+        jLabel_ImagePath.setText("Path");
+        
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     public static void displayAuthorData(int id, String fullName)
     {
         jText_author.setText(fullName);
+        jLabel22.setText(String.valueOf(id));
+    }
+    
+    public void fillJcomboboxWGenres()
+    {
+        for(String genreName : genresMap.keySet())
+        {
+            jComboBox_genre.addItem(genreName);
+        }
     }
     
     /**
@@ -396,6 +484,7 @@ public class AddPainting extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton_choosePic;
     private javax.swing.JButton jButton_selectAuthor;
     private javax.swing.JComboBox<String> jComboBox_genre;
@@ -409,6 +498,8 @@ public class AddPainting extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel1_header;
     private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private static javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel_Image;
     private javax.swing.JLabel jLabel_ImagePath;
     private javax.swing.JPanel jPanel1;
