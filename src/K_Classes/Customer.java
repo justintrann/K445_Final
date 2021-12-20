@@ -202,14 +202,20 @@ public class Customer {
     }
     
       //For jTable arrayList. GET from DB to jTable
-    public static ArrayList<Customer> customersList()
+    public static ArrayList<Customer> customersList(String query)
     {
        ArrayList<Customer> mList = new ArrayList<>();
        
        K_Classes.Functions func = new Functions();
         
         try {
-            ResultSet rs = func.getData("SELECT * FROM `customer`");
+            
+            if (query.equals("")) //If empty , still show all
+            {
+                query = "SELECT * FROM customer";
+            }
+            
+            ResultSet rs = func.getData(query);
             
             Customer customer;
             

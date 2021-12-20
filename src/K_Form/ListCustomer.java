@@ -4,10 +4,13 @@
  */
 package K_Form;
 
+import K_Classes.Customer;
 import K_Classes.Functions;
 import java.awt.Color;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
+import javax.swing.JOptionPane;
 import javax.swing.border.Border;
 import javax.swing.table.DefaultTableModel;
 
@@ -22,6 +25,7 @@ public class ListCustomer extends javax.swing.JFrame {
      */
     
     K_Classes.Customer customer = new K_Classes.Customer();
+    K_Classes.Functions func = new Functions();
     
     public ListCustomer() {
         initComponents();
@@ -29,7 +33,7 @@ public class ListCustomer extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         
         //Display Img
-        K_Classes.Functions func = new Functions();
+       // K_Classes.Functions func = new Functions();
         func.displayImage(70 , 70,null, "/K_Image/customer.png", jLabel1_header);
         
         
@@ -37,7 +41,8 @@ public class ListCustomer extends javax.swing.JFrame {
         Border panelHeaderBorder = BorderFactory.createMatteBorder(3, 3, 3, 3, new Color(1, 152, 117));
         jPanel1.setBorder(panelHeaderBorder);
         
-        populatejTablewithCustomers();
+        //Show Customer in jTable
+        populatejTablewithCustomers("");
     }
 
     /**
@@ -57,6 +62,11 @@ public class ListCustomer extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jButton2 = new javax.swing.JButton();
+        jLabel_Image = new javax.swing.JLabel();
+        jLabel_fullName = new javax.swing.JLabel();
+        jLabel_phone = new javax.swing.JLabel();
+        jLabel_email = new javax.swing.JLabel();
+        jLabel_gender = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -88,40 +98,50 @@ public class ListCustomer extends javax.swing.JFrame {
 
             }
         ));
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
-        jButton2.setText("jButton2");
+        jButton2.setText("FIND");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(565, Short.MAX_VALUE)
+                .addContainerGap(582, Short.MAX_VALUE)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addContainerGap()
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 683, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1)
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addComponent(jLabel2)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                             .addComponent(jText_ID, javax.swing.GroupLayout.PREFERRED_SIZE, 509, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(0, 135, Short.MAX_VALUE))
+                            .addGap(0, 152, Short.MAX_VALUE))
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jLabel1_header, javax.swing.GroupLayout.DEFAULT_SIZE, 610, Short.MAX_VALUE)))
+                            .addComponent(jLabel1_header, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addContainerGap()))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(98, 98, 98)
-                .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
-                .addGap(314, 314, 314))
+                .addGap(101, 101, 101)
+                .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(305, 305, 305))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addContainerGap()
@@ -137,23 +157,60 @@ public class ListCustomer extends javax.swing.JFrame {
                     .addContainerGap()))
         );
 
+        jLabel_Image.setBackground(new java.awt.Color(153, 204, 255));
+        jLabel_Image.setOpaque(true);
+
+        jLabel_fullName.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel_fullName.setText("Full Name:");
+
+        jLabel_phone.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel_phone.setText("Phone:");
+
+        jLabel_email.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel_email.setText("Email:");
+
+        jLabel_gender.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel_gender.setText("Gender:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel_Image, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabel_fullName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel_phone, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel_email, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel_gender, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 59, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 435, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(139, 139, 139)
+                .addComponent(jLabel_Image, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel_fullName)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel_phone)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel_email)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel_gender))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
      //GET from DB to jTable
-    public void populatejTablewithCustomers(){
-        ArrayList<K_Classes.Customer> customersList = K_Classes.Customer.customersList();
+    public void populatejTablewithCustomers(String query){
+        
+        ArrayList<K_Classes.Customer> customersList = K_Classes.Customer.customersList(query);
         
         //Column
         String[] colName = {"ID", "F-Name", "L-Name", "Phone", "Address", "Gender", "Email"};
@@ -181,6 +238,46 @@ public class ListCustomer extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+       //Search with nearly true to first or last NAME
+        String val = jText_ID.getText();
+       String query = "SELECT * FROM `customer` WHERE `firstName` LIKE '%"+val+"%' or `lastName` LIKE '%"+val+"%' ";
+       populatejTablewithCustomers(query);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        // get customer data
+            Customer SelectedCustomer;
+        try {
+            // search customer by id and display data
+            Integer rowIndex = jTable1.getSelectedRow();
+            Integer id = Integer.parseInt(jTable1.getModel().getValueAt(rowIndex, 0).toString()); //Select at row
+            
+            SelectedCustomer = customer.getCustomerbyId(id);
+            
+            if(SelectedCustomer != null)
+            {
+                jLabel_fullName.setText(SelectedCustomer.getFirstName()+ " " + SelectedCustomer.getLastName());
+                jLabel_phone.setText(SelectedCustomer.getPhone());
+                jLabel_email.setText(SelectedCustomer.getEmail());
+                jLabel_gender.setText(SelectedCustomer.getGender());
+                
+                // display the member image
+            
+                byte[] image = SelectedCustomer.getPicture();
+                func.displayImage(125 , 80, image, "", jLabel_Image);
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(null, "No Customer With This ID Is Found","INvalid ID",3);
+            }              
+            
+        } catch (SQLException | NumberFormatException ex) {
+            //Logger.getLogger(EditCustomer.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Enter a Valid Customer ID","INvalid ID",3);
+        }
+    }//GEN-LAST:event_jTable1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -222,6 +319,11 @@ public class ListCustomer extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1_header;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel_Image;
+    private javax.swing.JLabel jLabel_email;
+    private javax.swing.JLabel jLabel_fullName;
+    private javax.swing.JLabel jLabel_gender;
+    private javax.swing.JLabel jLabel_phone;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
