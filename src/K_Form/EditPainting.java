@@ -114,7 +114,7 @@ public class EditPainting extends javax.swing.JFrame {
         jLabel1_header.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1_header.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1_header.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1_header.setText("Add New Painting");
+        jLabel1_header.setText("Edit Painting");
         jLabel1_header.setOpaque(true);
 
         jButton1.setText("BACK");

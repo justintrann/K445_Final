@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Date;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -267,5 +268,80 @@ public class Paintings_class {
         return paints;
      }
      
+     //DELETE---
+        //Delete
+    public void deletePainting(int _id)
+    {
+        String deleteQuery = "DELETE FROM `painting` WHERE `id` = ?";
+        
+        try {
+            PreparedStatement ps = DB.getConnection().prepareStatement(deleteQuery);
+            
+            //Because SET `SQL is first , so we must set index below of name firstly
+            ps.setInt(1,_id);
+            if(ps.executeUpdate() != 0)
+            {
+                JOptionPane.showMessageDialog(null, "Successfully","Deleted Painting",1);
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(null, "Failed","Deleted Painting",2);
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Paintings_class.class.getName()).log(Level.SEVERE, null, ex);
+        }   
+    }
+    
+    //For jTable arrayList. GET from DB to jTable . AND for SEARCHING in ListPainting
+    public static ArrayList<Paintings_class> paintingList(String query)
+    {
+       ArrayList<Paintings_class> pList = new ArrayList<>();
+       
+       K_Classes.Functions func = new Functions();
+        
+        try {
+            
+            if (query.equals("")) //If empty , still show all
+            {
+                query = "SELECT * FROM painting";
+            }
+            
+            ResultSet rs = func.getData(query);
+            
+            Paintings_class painting;
+            
+            while (rs.next())
+            {
+                painting = new Paintings_class(rs.getInt(1),rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(5), 
+                        rs.getInt(6), rs.getDouble(7),
+                        rs.getString(8), rs.getString(9), rs.getBytes(10));
+                
+                pList.add(painting);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Paintings_class.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            
+      return pList;
+    }
      
+     // get customer by id
+    public Paintings_class getPaintbyId(Integer _id) throws SQLException
+    {
+        Functions func = new Functions();
+        String query = "SELECT * FROM `painting` WHERE `id`="+_id;
+        ResultSet rs = func.getData(query);
+        if(rs.next())
+        {
+            return new Paintings_class(rs.getInt(1),rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(5), 
+                        rs.getInt(6), rs.getDouble(7),
+                        rs.getString(8), rs.getString(9), rs.getBytes(10));
+                    }
+        else{
+            return null;
+        }
+    }
+    
+    
 } // E.O.F

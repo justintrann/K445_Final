@@ -166,6 +166,23 @@ public class Genres_class {
         return map;
     }
     
-    
+    //Function  to get author by id
+    public Genres_class getGenresbyID(Integer id)
+    {
+        K_Classes.Functions func = new Functions();
+        ResultSet rs = func.getData("SELECT * FROM `paint_genres` WHERE id = "+id);
+            
+            Genres_class genre = null;
+            
+        try {
+            if (rs.next())
+            {
+               genre = new Genres_class(rs.getInt("id"), rs.getString("name"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Genres_class.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            return genre;
+    }
     
 }//End O F
