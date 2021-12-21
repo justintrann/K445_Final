@@ -3,6 +3,7 @@ package K_Classes;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Date;
+import java.sql.ResultSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -12,6 +13,7 @@ import javax.swing.JOptionPane;
  * @author Justin
  */
 public class Paintings_class {
+    private Integer id;
     private String codeid;
     private String name;
     private Integer author_id;
@@ -25,9 +27,10 @@ public class Paintings_class {
     //constr
     public Paintings_class(){}
     
-    public Paintings_class(String _codeid, String _name, Integer _author_id, Integer _genre_id, Integer _qty, double _price,
+    public Paintings_class(Integer _id,String _codeid, String _name, Integer _author_id, Integer _genre_id, Integer _qty, double _price,
             String _date_received, String _descr, byte[] _pic)
     {
+        this.id = _id;
         this.codeid = _codeid;
         this.name = _name;
         this.author_id = _author_id;
@@ -39,6 +42,16 @@ public class Paintings_class {
         this.pic = _pic;
     }
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    
+    
     //GET
     public String getcodeid() {
         return codeid;
@@ -148,4 +161,24 @@ public class Paintings_class {
             Logger.getLogger(Paintings_class.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+     public boolean uniqueCodeID(String _codeid)
+    {
+        String query = "SELECT * FROM painting WHERE codeid = '" + _codeid + "'";
+        Functions func = new Functions();
+        ResultSet rs = func.getData(query);
+        try {
+            if(rs.next())
+            {
+                return true;
+            }
+            else
+                return false;
+            
+                } catch (SQLException ex) {
+            Logger.getLogger(Paintings_class.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return true;
+    }
+    
 }

@@ -4,8 +4,10 @@
  */
 package K_Form;
 
+import java.sql.ResultSet;
 import K_Classes.Customer;
 import K_Classes.Functions;
+import K_Classes.Paintings_class;
 import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
@@ -368,29 +370,50 @@ public class AddPainting extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton_choosePicActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-     
-            //Let's get value first
+            Paintings_class Painting = new Paintings_class();
             String codeid = jText_Id.getText();
+            
+            if (!verif())
+            {
+                JOptionPane.showMessageDialog(null, "Please fill in", "Empty Data", 2);
+            }
+            else if (Painting.uniqueCodeID(codeid))
+            {
+                JOptionPane.showMessageDialog(null, "CodeID Existed","",2);
+            }
+            else
+            {
+                 
+        try{    
+                    //Let's get value first
+            
             String name = jText_name.getText();
             String descr = jText_description.getText();
             
             Integer author_id = Integer.parseInt(jLabel22.getText());
-            Integer genre_id = Integer.parseInt(jLabel21.getText());;
+            Integer genre_id = Integer.parseInt(jLabel16.getText());;
             Integer qty = Integer.parseInt(jSpinner_qty.getValue().toString());
             
             Double price = Double.parseDouble(jText_price.getText());
             
-            //Get value img
-        try{    
+            
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             String received_date = dateFormat.format(jDateChooser1.getDate());
             Path path = Paths.get(imagePath);
+            
             byte[] img = Files.readAllBytes(path);
-            K_Classes.Paintings_class paints = new K_Classes.Paintings_class();
-            paints.addPainting(codeid, name, author_id, genre_id, qty, price, received_date, descr, img);
-        } catch (IOException ex) {
-            Logger.getLogger(AddPainting.class.getName()).log(Level.SEVERE, null, ex);
+           
+            Painting.addPainting(codeid, name, author_id, genre_id, qty, price, received_date, descr, img);
+        } catch (IOException ex) { //For empty textbox
+            JOptionPane.showMessageDialog(null, "Please Add Photo", "Empty Data", 2);
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(null, "Only Number Accepted In Price", "Wrong Data", 2);
+        }    catch (NullPointerException ex) {
+            JOptionPane.showMessageDialog(null, "Please select Received Date", "Select Date", 2);
         }
+            }
+            
+           
         
         
     }//GEN-LAST:event_jButton3ActionPerformed
@@ -431,11 +454,26 @@ public class AddPainting extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jButton4ActionPerformed
 
+    //Method-Function
+    
+   
+    
     public static void displayAuthorData(int id, String fullName)
     {
         jText_author.setText(fullName);
         jLabel22.setText(String.valueOf(id));
     }
+    
+    public boolean verif()
+    {
+        if(jText_Id.getText().equals("") || jText_author.getText().equals("") || jText_description.getText().equals("") || 
+                jText_name.getText().equals("")|| jText_price.getText().equals(""))
+        {
+            return false;
+        }
+    return true;
+    }
+    
     
     public void fillJcomboboxWGenres()
     {
