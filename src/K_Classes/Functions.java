@@ -4,6 +4,7 @@
  */
 package K_Classes;
 
+import com.mysql.jdbc.Statement;
 import java.awt.Image;
 import java.io.File;
 import java.sql.PreparedStatement;
@@ -86,5 +87,25 @@ public class Functions {
             path = fileChooser.getSelectedFile().getAbsolutePath();
         }
         return path;
+    }
+    
+    //Count number of Data imported
+    public int countData(String tableName)
+    {
+        int total = 0;
+        ResultSet rs;
+        Statement st;
+        
+        try {
+            st = (Statement) DB.getConnection().createStatement();
+            rs = st.executeQuery("SELECT COUNT(*) as total FROM `"+tableName+"`");
+            if(rs.next())
+            {
+                total = rs.getInt("total");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Functions.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return total;
     }
 }

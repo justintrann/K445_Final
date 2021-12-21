@@ -1,5 +1,6 @@
 package K_Classes;
 
+import com.mysql.jdbc.Statement;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Date;
@@ -7,6 +8,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 /**
@@ -343,5 +345,28 @@ public class Paintings_class {
         }
     }
     
-    
+    //For five lastest paintings
+    //array of jlabel like parameter
+    public void displayPaintingPicture(JLabel[] labels_tab)
+    {
+        ResultSet rs;
+        Statement st;
+        Functions func = new Functions();
+        
+        try {
+            st = (Statement) DB.getConnection().createStatement();
+            rs = st.executeQuery("SELECT pic FROM painting LIMIT 5");
+            byte[] image;
+            int i=0;
+            while(rs.next()) //Go all data
+            {
+                image =rs.getBytes("pic");
+                func.displayImage(labels_tab[i].getWidth(), labels_tab[i].getHeight(), image, name, labels_tab[i]);
+                i++;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Paintings_class.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
 } // E.O.F
