@@ -162,6 +162,66 @@ public class Paintings_class {
         }
     }
     
+    
+    //Edit Function for AddPainting Form
+    public void editPainting(int _id, String _name, Integer _author_id, Integer _genre_id, Integer _qty, double _price,
+            String _date_received, String _descr, byte[] _pic)
+    {
+        String updateQuery;
+        PreparedStatement ps;
+        
+        try{
+        
+        if(_pic !=null)
+        {
+            updateQuery = "UPDATE `painting` SET `name`=?,`author_id`=?,`genre_id`=?,`qty`=?,`price`=?,`date_received`=?,`descr`=?,`pic`=? WHERE id = ?";
+            ps = DB.getConnection().prepareStatement(updateQuery);
+            
+            //Must match index with query above
+            ps.setString(1, _name);
+            ps.setInt(2, _author_id);
+            ps.setInt(3, _genre_id);
+            ps.setInt(4, _qty);
+            ps.setDouble(5, _price);
+            ps.setString(6, _date_received);
+            ps.setString(7, _descr);
+            ps.setBytes(8, _pic);
+            ps.setInt(9, _id);
+            
+        }
+        else
+        {
+            updateQuery = "UPDATE `painting` SET `name`=?,`author_id`=?,`genre_id`=?,`qty`=?,`price`=?,`date_received`=?,`descr`=? WHERE id = ?";
+            
+            ps = DB.getConnection().prepareStatement(updateQuery);
+            
+            //Must match index with query above
+            ps.setString(1, _name);
+            ps.setInt(2, _author_id);
+            ps.setInt(3, _genre_id);
+            ps.setInt(4, _qty);
+            ps.setDouble(5, _price);
+            ps.setString(6, _date_received);
+            ps.setString(7, _descr);
+            //ps.setBytes(8, _pic);
+            ps.setInt(8, _id);
+            
+        }
+           
+            if(ps.executeUpdate() != 0)
+            {
+                JOptionPane.showMessageDialog(null, "Successfully","Edit Painting",1);
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(null, "Failed","Edit Painting",2);
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Paintings_class.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
      public boolean uniqueCodeID(String _codeid)
     {
         String query = "SELECT * FROM painting WHERE codeid = '" + _codeid + "'";
@@ -181,4 +241,31 @@ public class Paintings_class {
         return true;
     }
     
-}
+     public Paintings_class searchPaintingbyID(int _id, String _codeID)
+     {
+        String query="SELECT * FROM painting WHERE id = '" + _id + "' OR codeid = '" + _codeID + "'";
+        
+        Functions func = new Functions();
+        ResultSet rs = func.getData(query);
+        
+        Paintings_class paints = null;
+        
+        try {
+            if(rs.next())
+            {
+                paints = new Paintings_class(rs.getInt(1),rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(5), 
+                        rs.getInt(6), rs.getDouble(7),
+                        rs.getString(8), rs.getString(9), rs.getBytes(10));
+            }
+            else
+            {
+                return paints;
+            }
+                } catch (SQLException ex) {
+            Logger.getLogger(Paintings_class.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return paints;
+     }
+     
+     
+} // E.O.F

@@ -17,7 +17,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Justin
  */
 public class AuthorList extends javax.swing.JFrame {
-
+public  String formType = "";
     /**
      * Creates new form Genres
      */
@@ -189,7 +189,10 @@ public class AuthorList extends javax.swing.JFrame {
 
         String fullName = firstName + " " + lastName;
         
-        AddPainting.displayAuthorData(id, fullName);
+        if(formType.equals("edit"))
+            EditPainting.displayAuthorData(id, fullName);
+        else
+            AddPainting.displayAuthorData(id, fullName);
         this.dispose();
     }//GEN-LAST:event_jButton_selectActionPerformed
 

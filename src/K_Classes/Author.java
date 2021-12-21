@@ -176,4 +176,24 @@ public class Author {
             
       return aList;
     }
-}
+    
+    //Function  to get author by id
+    public Author getAuthorbyID(Integer id)
+    {
+        K_Classes.Functions func = new Functions();
+        ResultSet rs = func.getData("SELECT * FROM `author` WHERE id = "+id);
+            
+            Author author = null;
+            
+        try {
+            if (rs.next())
+            {
+                author = new Author(rs.getInt("id"), rs.getString("firstName"), rs.getString("lastName"), rs.getString("expertise"), rs.getString("about"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Author.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            return author;
+    }
+    
+} //EOF
