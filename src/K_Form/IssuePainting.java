@@ -81,7 +81,6 @@ public class IssuePainting extends javax.swing.JFrame {
         jButton_searchPainting = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jLabel23 = new javax.swing.JLabel();
-        jText_CustomerID = new javax.swing.JTextField();
         jLabel24 = new javax.swing.JLabel();
         jLabel_CustomerFullName = new javax.swing.JLabel();
         jButton_searchCustomer = new javax.swing.JButton();
@@ -91,6 +90,7 @@ public class IssuePainting extends javax.swing.JFrame {
         jDateChooser_IssueDate = new com.toedter.calendar.JDateChooser();
         jDateChooser_ReturnDate = new com.toedter.calendar.JDateChooser();
         jSpinner_PaintingID = new javax.swing.JSpinner();
+        jSpinner_CustomerID = new javax.swing.JSpinner();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -141,8 +141,6 @@ public class IssuePainting extends javax.swing.JFrame {
         jLabel23.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel23.setText("Enter Painting ID:");
 
-        jText_CustomerID.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-
         jLabel24.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel24.setText("Enter Customer ID:");
 
@@ -168,6 +166,8 @@ public class IssuePainting extends javax.swing.JFrame {
         jLabel20.setText("Return Date:");
 
         jSpinner_PaintingID.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        jSpinner_CustomerID.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -212,15 +212,13 @@ public class IssuePainting extends javax.swing.JFrame {
                                                 .addComponent(jDateChooser_IssueDate, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel24)
+                                .addGap(22, 22, 22)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(22, 22, 22)
-                                        .addComponent(jLabel_CustomerFullName))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jText_CustomerID, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jSpinner_CustomerID, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jButton_searchCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addComponent(jButton_searchCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jLabel_CustomerFullName)))
                             .addComponent(jLabel20))))
                 .addContainerGap())
         );
@@ -240,9 +238,9 @@ public class IssuePainting extends javax.swing.JFrame {
                 .addComponent(jLabel_PaintingName)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jText_CustomerID, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton_searchCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel24))
+                    .addComponent(jLabel24)
+                    .addComponent(jSpinner_CustomerID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel_CustomerFullName)
                 .addGap(15, 15, 15)
@@ -319,12 +317,8 @@ public class IssuePainting extends javax.swing.JFrame {
             }
                     
         } catch (SQLException ex) {
-            Logger.getLogger(IssuePainting.class.getName()).log(Level.SEVERE, null, ex);
-           
-            
+            Logger.getLogger(IssuePainting.class.getName()).log(Level.SEVERE, null, ex); 
         }
-     
-
     }//GEN-LAST:event_jButton_searchPaintingActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -337,7 +331,28 @@ public class IssuePainting extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton_searchCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_searchCustomerActionPerformed
-        // TODO add your handling code here:
+        // search and display customer
+              //get the customer id
+            int customer_id = (int)jSpinner_CustomerID.getValue();
+        
+        try {
+           //get the customer by id
+            K_Classes.Customer selectedCustomer = customer.getCustomerbyId(customer_id);
+            //if paint exsit
+            if(selectedCustomer != null)
+            {
+                //display member name
+                jLabel_CustomerFullName.setText(selectedCustomer.getFirstName() + " " + selectedCustomer.getLastName());      
+            }
+             //if this customer doesnt exsit
+            else
+            {
+                JOptionPane.showMessageDialog(null, "This customer doesn't exist!", "Customer Not Found", 2);
+            }
+                    
+        } catch (SQLException ex) {
+            Logger.getLogger(IssuePainting.class.getName()).log(Level.SEVERE, null, ex); 
+        }
     }//GEN-LAST:event_jButton_searchCustomerActionPerformed
 
      
@@ -417,7 +432,7 @@ public class IssuePainting extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel_CustomerFullName;
     private javax.swing.JLabel jLabel_PaintingName;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JSpinner jSpinner_CustomerID;
     private javax.swing.JSpinner jSpinner_PaintingID;
-    private javax.swing.JTextField jText_CustomerID;
     // End of variables declaration//GEN-END:variables
 }
