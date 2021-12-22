@@ -84,13 +84,15 @@ public class User extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel1_header.setBackground(new java.awt.Color(1, 50, 67));
+        jLabel1_header.setBackground(new java.awt.Color(242, 217, 132));
         jLabel1_header.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel1_header.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1_header.setForeground(new java.awt.Color(51, 51, 51));
         jLabel1_header.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1_header.setText("Manage Authors");
+        jLabel1_header.setText("Manage Users");
         jLabel1_header.setOpaque(true);
 
+        jButton1.setBackground(new java.awt.Color(242, 217, 132));
+        jButton1.setForeground(new java.awt.Color(51, 51, 51));
         jButton1.setText("BACK");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -486,7 +488,7 @@ public class User extends javax.swing.JFrame {
             }
         });
     }
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton_add;
