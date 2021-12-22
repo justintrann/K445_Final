@@ -355,7 +355,8 @@ public class Paintings_class {
         
         try {
             st = (Statement) DB.getConnection().createStatement();
-            rs = st.executeQuery("SELECT pic FROM painting LIMIT 5");
+            // Hieu
+            rs = st.executeQuery("SELECT pic FROM painting order by id desc LIMIT 5");
             byte[] image;
             int i=0;
             while(rs.next()) //Go all data
