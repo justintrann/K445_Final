@@ -329,7 +329,7 @@ public class Paintings_class {
     }
      
      // get customer by id
-    public Paintings_class getPaintbyId(Integer _id) throws SQLException
+    public  Paintings_class getPaintbyId(Integer _id) throws SQLException
     {
         Functions func = new Functions();
         String query = "SELECT * FROM `painting` WHERE `id`="+_id;
