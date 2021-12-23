@@ -90,6 +90,7 @@ public class Users {
     //Insert Function for user Form
     public void addUsers(String _fname, String _lname, String _usename, String _password, String _user_type)
     {
+        //add
         String insertQuery = "INSERT INTO `users_table`(`firstName`, `lastName`, `usename`, `password`, `user_type`) VALUES (?,?,?,?,?)";
         
         try {
@@ -114,6 +115,36 @@ public class Users {
             Logger.getLogger(Author.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    //edit
+    public void editUser(int _id, String _fname, String _lname, String _usename, String _password, String _user_type)
+    {
+        String editQuery = "UPDATE `users_table` SET `firstName`=?,`lastName`=?,`usename`=?,`password`=?,`user_type`=? WHERE `id`=?";
+        
+        try {
+            PreparedStatement ps = DB.getConnection().prepareStatement(editQuery);
+            
+            //Because SET `SQL is first , so we must set index below of name firstly
+            ps.setString(1, _fname);
+            ps.setString(2, _lname);
+            ps.setString(3, _usename);
+            ps.setString(4, _password);
+            ps.setString(5, _user_type);
+            ps.setInt(6, _id);
+            
+            if(ps.executeUpdate() != 0)
+            {
+                JOptionPane.showMessageDialog(null, "Successfully","Updated User",1);
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(null, "Failed","Updated User",2);
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     //For jTable userList. GET from DB to jTable
     public static ArrayList<User> userList()
     {
