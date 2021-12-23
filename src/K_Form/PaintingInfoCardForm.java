@@ -21,6 +21,8 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Justin
  */
+
+
 public class PaintingInfoCardForm extends javax.swing.JFrame {
 
     /**
@@ -32,7 +34,10 @@ public class PaintingInfoCardForm extends javax.swing.JFrame {
     K_Classes.Author author = new K_Classes.Author();
     K_Classes.Genres_class genre = new K_Classes.Genres_class();
     
-    public PaintingInfoCardForm() {
+    
+    
+    
+    public PaintingInfoCardForm(int painting_id) {
         initComponents();
         
         this.setLocationRelativeTo(null);
@@ -47,15 +52,15 @@ public class PaintingInfoCardForm extends javax.swing.JFrame {
         jPanel1.setBorder(panelHeaderBorder);
         
         //Show Customer in jTable
-      displayPaintingInfo(2);
+      displayPaintingInfo(painting_id);
     }
 
     // func to display paint info
-    public void displayPaintingInfo(int painting_id)
+    public void displayPaintingInfo(int _painting_id)
     {
         try {
             
-            K_Classes.Paintings_class selectedPainting = paint.getPaintbyId(painting_id);
+            K_Classes.Paintings_class selectedPainting = paint.getPaintbyId(_painting_id);
             
              if(selectedPainting != null)
             {
@@ -285,7 +290,7 @@ public class PaintingInfoCardForm extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new PaintingInfoCardForm().setVisible(true);
+                new PaintingInfoCardForm(0).setVisible(true);
             }
         });
     }

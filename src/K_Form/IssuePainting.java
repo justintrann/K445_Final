@@ -469,10 +469,15 @@ public class IssuePainting extends javax.swing.JFrame {
 
     private void jLabel_PaintingName_MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_PaintingName_MouseClicked
         // display paint info card
+        int painting_id = (int)jSpinner_PaintingID.getValue();
+        PaintingInfoCardForm paintingCardF = new PaintingInfoCardForm(painting_id);
+      
+        paintingCardF.setVisible(true);
     }//GEN-LAST:event_jLabel_PaintingName_MouseClicked
 
     private void jLabel_CustomerFullName_MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_CustomerFullName_MouseClicked
         //// display customer info card
+        
     }//GEN-LAST:event_jLabel_CustomerFullName_MouseClicked
 
      
