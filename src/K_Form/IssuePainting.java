@@ -82,14 +82,14 @@ public class IssuePainting extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1_header = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jLabel_PaintingName = new javax.swing.JLabel();
+        jLabel_PaintingName_ = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         jButton_Issue = new javax.swing.JButton();
         jButton_searchPainting = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jLabel23 = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
-        jLabel_CustomerFullName = new javax.swing.JLabel();
+        jLabel_CustomerFullName_ = new javax.swing.JLabel();
         jButton_searchCustomer = new javax.swing.JButton();
         jLabel25 = new javax.swing.JLabel();
         jLabel_Available = new javax.swing.JLabel();
@@ -120,9 +120,14 @@ public class IssuePainting extends javax.swing.JFrame {
             }
         });
 
-        jLabel_PaintingName.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel_PaintingName.setForeground(new java.awt.Color(0, 0, 255));
-        jLabel_PaintingName.setText("Painting Name");
+        jLabel_PaintingName_.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel_PaintingName_.setForeground(new java.awt.Color(0, 0, 255));
+        jLabel_PaintingName_.setText("Painting Name");
+        jLabel_PaintingName_.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel_PaintingName_MouseClicked(evt);
+            }
+        });
 
         jLabel19.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel19.setText("Issue Date:");
@@ -154,9 +159,14 @@ public class IssuePainting extends javax.swing.JFrame {
         jLabel24.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel24.setText("Enter Customer ID:");
 
-        jLabel_CustomerFullName.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel_CustomerFullName.setForeground(new java.awt.Color(0, 0, 255));
-        jLabel_CustomerFullName.setText("Customer Full-Name");
+        jLabel_CustomerFullName_.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel_CustomerFullName_.setForeground(new java.awt.Color(0, 0, 255));
+        jLabel_CustomerFullName_.setText("Customer Full-Name");
+        jLabel_CustomerFullName_.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel_CustomerFullName_MouseClicked(evt);
+            }
+        });
 
         jButton_searchCustomer.setText("search customer");
         jButton_searchCustomer.addActionListener(new java.awt.event.ActionListener() {
@@ -213,7 +223,7 @@ public class IssuePainting extends javax.swing.JFrame {
                                         .addComponent(jSpinner_PaintingID, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jButton_searchPainting, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jLabel_PaintingName)
+                                    .addComponent(jLabel_PaintingName_)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGap(1, 1, 1)
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -229,7 +239,7 @@ public class IssuePainting extends javax.swing.JFrame {
                                         .addComponent(jSpinner_CustomerID, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jButton_searchCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jLabel_CustomerFullName)))
+                                    .addComponent(jLabel_CustomerFullName_)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jButton_Issue, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -257,14 +267,14 @@ public class IssuePainting extends javax.swing.JFrame {
                         .addComponent(jButton_searchPainting, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel23)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel_PaintingName)
+                .addComponent(jLabel_PaintingName_)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton_searchCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel24)
                     .addComponent(jSpinner_CustomerID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel_CustomerFullName)
+                .addComponent(jLabel_CustomerFullName_)
                 .addGap(15, 15, 15)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel25)
@@ -336,7 +346,7 @@ public class IssuePainting extends javax.swing.JFrame {
             if(selectedPainting != null)
             {
                 //display paint title/name
-                jLabel_PaintingName.setText(selectedPainting.getName());  
+                jLabel_PaintingName_.setText(selectedPainting.getName());  
                 //set the painting exist to true
                 painting_Exist = true;
                 
@@ -356,10 +366,12 @@ public class IssuePainting extends javax.swing.JFrame {
             else
             {
                 JOptionPane.showMessageDialog(null, "This painting doesn't exist!", "Painting Not Found", 2);
-                jLabel_PaintingName.setText("Painting Name");
+                jLabel_PaintingName_.setText("Painting Name");
                 painting_Exist = false;
                 jLabel_Available.setText("YES-or-NO");
-                 jLabel_Available.setForeground(new Color (0,0,255));
+                jLabel_Available.setForeground(new Color (0,0,255));
+                painting_Exist = false;
+                customer_Exist = false;
             }
                     
         } catch (SQLException ex) {
@@ -402,6 +414,16 @@ public class IssuePainting extends javax.swing.JFrame {
             else
             {
                  issue.addIssue(_painting_id, _customer_id, "issued", _issue_date, _return_date, _note);
+                 //reset fields
+                 jSpinner_PaintingID.setValue(0);
+                 jSpinner_CustomerID.setValue(0);
+                 jLabel_PaintingName_.setText("Painting Name");
+                 jLabel_CustomerFullName_.setText("Customer Full-Name");
+                 jDateChooser_IssueDate.setDate(new Date());
+                 jDateChooser_ReturnDate.setDate(new Date());
+                 
+                 jLabel_Available.setText("YES-or-NO");
+                 jLabel_Available.setForeground(new Color (0,0,255));
             }
            
         }
@@ -428,7 +450,7 @@ public class IssuePainting extends javax.swing.JFrame {
             if(selectedCustomer != null)
             {
                 //display member name
-                jLabel_CustomerFullName.setText(selectedCustomer.getFirstName() + " " + selectedCustomer.getLastName());  
+                jLabel_CustomerFullName_.setText(selectedCustomer.getFirstName() + " " + selectedCustomer.getLastName());  
                 //set the customer exist to true
                 customer_Exist = true;
             }
@@ -436,7 +458,7 @@ public class IssuePainting extends javax.swing.JFrame {
             else
             {
                 JOptionPane.showMessageDialog(null, "This customer doesn't exist!", "Customer Not Found", 2);
-                jLabel_CustomerFullName.setText("Customer Full-Name");
+                jLabel_CustomerFullName_.setText("Customer Full-Name");
                 customer_Exist = false;
             }
                     
@@ -444,6 +466,14 @@ public class IssuePainting extends javax.swing.JFrame {
             Logger.getLogger(IssuePainting.class.getName()).log(Level.SEVERE, null, ex); 
         }
     }//GEN-LAST:event_jButton_searchCustomerActionPerformed
+
+    private void jLabel_PaintingName_MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_PaintingName_MouseClicked
+        // display paint info card
+    }//GEN-LAST:event_jLabel_PaintingName_MouseClicked
+
+    private void jLabel_CustomerFullName_MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_CustomerFullName_MouseClicked
+        //// display customer info card
+    }//GEN-LAST:event_jLabel_CustomerFullName_MouseClicked
 
      
     
@@ -515,8 +545,8 @@ public class IssuePainting extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel_Available;
-    private javax.swing.JLabel jLabel_CustomerFullName;
-    private javax.swing.JLabel jLabel_PaintingName;
+    private javax.swing.JLabel jLabel_CustomerFullName_;
+    private javax.swing.JLabel jLabel_PaintingName_;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSpinner jSpinner_CustomerID;
