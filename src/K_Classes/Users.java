@@ -4,8 +4,11 @@
  */
 package K_Classes;
 
+import K_Form.User;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -111,6 +114,28 @@ public class Users {
             Logger.getLogger(Author.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+    //For jTable userList. GET from DB to jTable
+    public static ArrayList<User> userList()
+    {
+       ArrayList<User> uList = new ArrayList<>();
+       
+       K_Classes.Functions func = new Functions();
+        
+        try {
+            ResultSet rs = func.getData("SELECT * FROM `users_table`");
+            
+            User user;
+            
+            while (rs.next())
+            {
+                user = new User(rs.getInt("id"), rs.getString("firstName"), rs.getString("lastName"), rs.getString("username"), rs.getString("password"), rs.getString("user_type"));
+                uList.add(user);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            
+      return uList;
+    }
     
 }
