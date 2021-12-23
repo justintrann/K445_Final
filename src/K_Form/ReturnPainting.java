@@ -35,7 +35,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Justin
  */
-public class IssuePainting extends javax.swing.JFrame {
+public class ReturnPainting extends javax.swing.JFrame {
 
     /**
      * Creates new form ListCustomer
@@ -50,7 +50,7 @@ public class IssuePainting extends javax.swing.JFrame {
     boolean customer_Exist = false;
    //Hieu
     
-    public IssuePainting() {
+    public ReturnPainting() {
         initComponents();
         
         this.setLocationRelativeTo(null);
@@ -380,7 +380,7 @@ public class IssuePainting extends javax.swing.JFrame {
             }
                     
         } catch (SQLException ex) {
-            Logger.getLogger(IssuePainting.class.getName()).log(Level.SEVERE, null, ex); 
+            Logger.getLogger(ReturnPainting.class.getName()).log(Level.SEVERE, null, ex); 
         }
     }//GEN-LAST:event_jButton_searchPaintingActionPerformed
 
@@ -468,7 +468,7 @@ public class IssuePainting extends javax.swing.JFrame {
             }
                     
         } catch (SQLException ex) {
-            Logger.getLogger(IssuePainting.class.getName()).log(Level.SEVERE, null, ex); 
+            Logger.getLogger(ReturnPainting.class.getName()).log(Level.SEVERE, null, ex); 
         }
     }//GEN-LAST:event_jButton_searchCustomerActionPerformed
 
@@ -524,14 +524,18 @@ public class IssuePainting extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(IssuePainting.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ReturnPainting.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(IssuePainting.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ReturnPainting.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(IssuePainting.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ReturnPainting.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(IssuePainting.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ReturnPainting.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -540,7 +544,7 @@ public class IssuePainting extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new IssuePainting().setVisible(true);
+                new ReturnPainting().setVisible(true);
             }
         });
     }
