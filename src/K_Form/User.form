@@ -87,6 +87,7 @@
                                   <Component id="jPasswordField1_" alignment="0" max="32767" attributes="0"/>
                                   <Component id="jPasswordField2_" alignment="1" max="32767" attributes="0"/>
                               </Group>
+                              <Component id="jCheckBox_SetAdmin" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                       </Group>
@@ -137,7 +138,9 @@
                           <Component id="jLabel_Password_2" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jPasswordField2_" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="18" max="32767" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="jCheckBox_SetAdmin" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jButton_delete" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
                               <Component id="jButton_add" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
@@ -384,6 +387,17 @@
               <Font name="Tahoma" size="24" style="1"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Password:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JCheckBox" name="jCheckBox_SetAdmin">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="14" style="2"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="33" green="0" red="0" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Make This User An Admin"/>
           </Properties>
         </Component>
       </SubComponents>

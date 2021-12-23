@@ -291,11 +291,11 @@ public class Author extends javax.swing.JFrame {
         String expertise = jText_Expertise.getText();
         String about = jTextArea_About.getText();
         
-        if(fname.isEmpty())
+        if(fname.trim().isEmpty())
         {
             jLabel3.setVisible(true);
         }
-        else if(lname.isEmpty())
+        else if(lname.trim().isEmpty())
         {
             jLabel5.setVisible(true);
         }

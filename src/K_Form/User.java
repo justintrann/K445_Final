@@ -92,6 +92,7 @@ public class User extends javax.swing.JFrame {
         jPasswordField1_ = new javax.swing.JPasswordField();
         jPasswordField2_ = new javax.swing.JPasswordField();
         jLabel_Usename1 = new javax.swing.JLabel();
+        jCheckBox_SetAdmin = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -238,6 +239,10 @@ public class User extends javax.swing.JFrame {
         jLabel_Usename1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel_Usename1.setText("Password:");
 
+        jCheckBox_SetAdmin.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
+        jCheckBox_SetAdmin.setForeground(new java.awt.Color(0, 0, 51));
+        jCheckBox_SetAdmin.setText("Make This User An Admin");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -280,7 +285,8 @@ public class User extends javax.swing.JFrame {
                                 .addComponent(jLabel_Username_1, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jPasswordField1_)
-                                .addComponent(jPasswordField2_, javax.swing.GroupLayout.Alignment.TRAILING)))
+                                .addComponent(jPasswordField2_, javax.swing.GroupLayout.Alignment.TRAILING))
+                            .addComponent(jCheckBox_SetAdmin))
                         .addGap(18, 18, 18)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -324,7 +330,9 @@ public class User extends javax.swing.JFrame {
                         .addComponent(jLabel_Password_2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPasswordField2_, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jCheckBox_SetAdmin)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButton_delete, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton_add, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -356,30 +364,38 @@ public class User extends javax.swing.JFrame {
         String Username = jText_Username.getText();
         String Password_1 = String.valueOf(jPasswordField1_.getPassword()); 
         String Password_2 = String.valueOf(jPasswordField2_.getPassword());
+        String userType = "user";
+        
+        if(jCheckBox_SetAdmin.isSelected()){userType = "admin";}
         
         //check if the textfield are empty
-        if(fname.trim().isEmpty())  //check the firsr name
+        if(fname.isEmpty())  //check the firsr name
         {
             jLabel3.setVisible(true);
         }
-        else if(lname.trim().isEmpty()) //check the last name
+        else if(lname.isEmpty()) //check the last name
         {
             jLabel5.setVisible(true);
         }
-        else if (Username.trim().isEmpty())  //check the username
+        else if (Username.isEmpty())  //check the username
         {
             jLabel_Username_1.setForeground(Color.red);
             //jLabel_Username_1.setVisible(true);
         }
-        else if (Password_1.trim().isEmpty())  //check the password
+        else if (Password_1.isEmpty())  //check the password
         {
             jLabel7.setForeground(Color.red);
+            //jLabel_Password_3.setVisible(true);
+        }
+        else if (!Password_1.equals(Password_2))  //check the password doesn't equal password
+        {
+            JOptionPane.showMessageDialog(null, "Retype The Correct Password","Password Error",0);
             //jLabel_Password_3.setVisible(true);
         }
         else
         {
             //K_Classes.Genres_class ge = new K_Classes.Genres_classes
-            User.addUser(fname,lname,Username,Password_1,"user");
+            User.addUser(fname, lname, Username, Password_1, userType);
             //Refresh after Add 
             //populatejTablewithGenres();
         }
@@ -438,7 +454,7 @@ public class User extends javax.swing.JFrame {
         jText_Username.setText(expertise);
         
     }//GEN-LAST:event_jTableMouseClicked
-    
+    /*
     //GET from DB to jTable
     public void populatejTablewithAuthors(){
         ArrayList<K_Classes.Author> authorsList = K_Classes.Author.authorsList();
@@ -461,7 +477,8 @@ public class User extends javax.swing.JFrame {
         DefaultTableModel model = new DefaultTableModel(rows,colName);
         jTable.setModel(model);
     }
-    
+    */
+
     
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
         // Hide Label on Click
@@ -583,6 +600,7 @@ public class User extends javax.swing.JFrame {
     private javax.swing.JButton jButton_add;
     private javax.swing.JButton jButton_delete;
     private javax.swing.JButton jButton_edit;
+    private javax.swing.JCheckBox jCheckBox_SetAdmin;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel1_header;
     private javax.swing.JLabel jLabel2;
