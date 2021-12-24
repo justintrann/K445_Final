@@ -64,12 +64,9 @@ public class ReturnPainting extends javax.swing.JFrame {
         Border panelHeaderBorder = BorderFactory.createMatteBorder(3, 3, 3, 3, new Color(108, 122, 137));
         jPanel1.setBorder(panelHeaderBorder);
 
-        //Hieu
-        
-        //Show Customer in jTable
-        
+        //PUT NEW METHOD HERE
+        populatejTablewithIssuePainting("");
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -84,15 +81,11 @@ public class ReturnPainting extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jLabel_PaintingName_ = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
-        jButton_Issue = new javax.swing.JButton();
-        jButton_searchPainting = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        jButton_delete = new javax.swing.JButton();
+        jButton_lost = new javax.swing.JButton();
         jLabel23 = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
         jLabel_CustomerFullName_ = new javax.swing.JLabel();
-        jButton_searchCustomer = new javax.swing.JButton();
-        jLabel25 = new javax.swing.JLabel();
-        jLabel_Available = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
         jDateChooser_IssueDate = new com.toedter.calendar.JDateChooser();
         jDateChooser_ReturnDate = new com.toedter.calendar.JDateChooser();
@@ -101,6 +94,11 @@ public class ReturnPainting extends javax.swing.JFrame {
         jLabel21 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea_Note = new javax.swing.JTextArea();
+        jLabel25 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTable = new javax.swing.JTable();
+        jButton_return1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -109,7 +107,7 @@ public class ReturnPainting extends javax.swing.JFrame {
         jLabel1_header.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1_header.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1_header.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1_header.setText("Issue Painting");
+        jLabel1_header.setText("Return Painting");
         jLabel1_header.setOpaque(true);
 
         jButton1.setBackground(new java.awt.Color(108, 122, 137));
@@ -136,24 +134,17 @@ public class ReturnPainting extends javax.swing.JFrame {
         jLabel19.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel19.setText("Issue Date:");
 
-        jButton_Issue.setText("Issue");
-        jButton_Issue.addActionListener(new java.awt.event.ActionListener() {
+        jButton_delete.setText("DELETE");
+        jButton_delete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton_IssueActionPerformed(evt);
+                jButton_deleteActionPerformed(evt);
             }
         });
 
-        jButton_searchPainting.setText("search painting");
-        jButton_searchPainting.addActionListener(new java.awt.event.ActionListener() {
+        jButton_lost.setText("LOST");
+        jButton_lost.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton_searchPaintingActionPerformed(evt);
-            }
-        });
-
-        jButton4.setText("Cancel");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                jButton_lostActionPerformed(evt);
             }
         });
 
@@ -173,26 +164,16 @@ public class ReturnPainting extends javax.swing.JFrame {
             }
         });
 
-        jButton_searchCustomer.setText("search customer");
-        jButton_searchCustomer.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton_searchCustomerActionPerformed(evt);
-            }
-        });
-
-        jLabel25.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel25.setText("Is This Painting Available:");
-
-        jLabel_Available.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel_Available.setForeground(new java.awt.Color(0, 0, 255));
-        jLabel_Available.setText("Yes-or-No");
-
         jLabel20.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel20.setText("Return Date:");
 
+        jDateChooser_IssueDate.setEnabled(false);
+
         jSpinner_PaintingID.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jSpinner_PaintingID.setEnabled(false);
 
         jSpinner_CustomerID.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jSpinner_CustomerID.setEnabled(false);
 
         jLabel21.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel21.setText("Note:");
@@ -201,61 +182,93 @@ public class ReturnPainting extends javax.swing.JFrame {
         jTextArea_Note.setRows(5);
         jScrollPane1.setViewportView(jTextArea_Note);
 
+        jLabel25.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel25.setText("Select Painting Status");
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "All", "Issued", "Returned", "Lost" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
+
+        jTable.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        jTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableMouseClicked(evt);
+            }
+        });
+        jScrollPane3.setViewportView(jTable);
+
+        jButton_return1.setText("RETURN");
+        jButton_return1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_return1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(jLabel1_header, javax.swing.GroupLayout.PREFERRED_SIZE, 801, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(8, 8, 8)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1_header, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(8, 8, 8)
+                        .addGap(192, 192, 192)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel19)
-                                        .addGap(79, 79, 79))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel23)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)))
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jSpinner_PaintingID, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jButton_searchPainting, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jLabel_PaintingName_)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(1, 1, 1)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(jScrollPane1)
-                                            .addComponent(jButton4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jDateChooser_IssueDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(jDateChooser_ReturnDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel24)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jSpinner_CustomerID, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jButton_searchCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jLabel_CustomerFullName_)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jButton_Issue, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel25)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel_Available))
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jLabel21)
-                                        .addComponent(jLabel20)))
-                                .addGap(0, 0, Short.MAX_VALUE)))))
+                            .addComponent(jLabel_PaintingName_)
+                            .addComponent(jLabel_CustomerFullName_)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel24)
+                            .addComponent(jLabel23))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jSpinner_PaintingID, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jSpinner_CustomerID, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel21)
+                                .addComponent(jLabel20))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jDateChooser_ReturnDate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                            .addComponent(jLabel19)
+                            .addGap(75, 75, 75)
+                            .addComponent(jDateChooser_IssueDate, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                            .addGap(54, 54, 54)
+                            .addComponent(jButton_delete, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(52, 52, 52)
+                        .addComponent(jButton_return1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton_lost, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel25)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 506, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -267,40 +280,40 @@ public class ReturnPainting extends javax.swing.JFrame {
                     .addComponent(jLabel1_header, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSpinner_PaintingID)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton_searchPainting, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel23)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel_PaintingName_)
+                        .addComponent(jLabel23)
+                        .addComponent(jSpinner_PaintingID)
+                        .addComponent(jLabel25)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton_searchCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel24)
-                    .addComponent(jSpinner_CustomerID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel_CustomerFullName_)
-                .addGap(15, 15, 15)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel25)
-                    .addComponent(jLabel_Available))
-                .addGap(24, 24, 24)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel19)
-                    .addComponent(jDateChooser_IssueDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(33, 33, 33)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel20)
-                    .addComponent(jDateChooser_ReturnDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(24, 24, 24)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel21))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton_Issue, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel_PaintingName_)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel24)
+                            .addComponent(jSpinner_CustomerID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel_CustomerFullName_)
+                        .addGap(11, 11, 11)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel19)
+                            .addComponent(jDateChooser_IssueDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(30, 30, 30)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel20, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jDateChooser_ReturnDate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(27, 27, 27)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel21)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton_lost, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton_return1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGap(7, 7, 7)
+                .addComponent(jButton_delete, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -308,84 +321,23 @@ public class ReturnPainting extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(16, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-       // jText_PaintingID.setText("");
-       /* jText_author.setText("");
-        jText_description.setText("");
-        jText_name.setText("");
-        jText_price.setText("");
-        jDateChooser1.setDate(new java.util.Date());0
-        jSpinner_qty.setValue(0);
-
-        jLabel22.setText("ID");
-        jComboBox_genre.setSelectedIndex(0);
-
-        jLabel_Image.setIcon(null);
-        jLabel_ImagePath.setText("Path");*/
-
-    }//GEN-LAST:event_jButton4ActionPerformed
-
-    //This button is for show AuthorList.java
-    //Hieu
-    private void jButton_searchPaintingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_searchPaintingActionPerformed
-            //get the paint id
-            int painting_id = (int)jSpinner_PaintingID.getValue();
-        
-        try {
-           //get the paint by id
-            K_Classes.Paintings_class selectedPainting = painting.getPaintbyId(painting_id);
-            //if paint exsit
-            if(selectedPainting != null)
-            {
-                //display paint title/name
-                jLabel_PaintingName_.setText(selectedPainting.getName());  
-                //set the painting exist to true
-                painting_Exist = true;
-                
-                // display avaibility
-                if(issue.checkPaintingAvailability(painting_id))
-                {
-                    jLabel_Available.setText("YES");
-                    jLabel_Available.setForeground(Color.green);
-                }
-                else
-                {
-                    jLabel_Available.setText("NO");
-                    jLabel_Available.setForeground(Color.red);
-                }
-            }
-             //if this paint doesnt exsit
-            else
-            {
-                JOptionPane.showMessageDialog(null, "This painting doesn't exist!", "Painting Not Found", 2);
-                jLabel_PaintingName_.setText("Painting Name");
-                painting_Exist = false;
-                jLabel_Available.setText("YES-or-NO");
-                jLabel_Available.setForeground(new Color (0,0,255));
-                painting_Exist = false;
-                customer_Exist = false;
-            }
-                    
-        } catch (SQLException ex) {
-            Logger.getLogger(ReturnPainting.class.getName()).log(Level.SEVERE, null, ex); 
-        }
-    }//GEN-LAST:event_jButton_searchPaintingActionPerformed
-
-    private void jButton_IssueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_IssueActionPerformed
-        //Hieu
+    private void jButton_lostActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_lostActionPerformed
+       //Paint lost so qty must -1
+       //Also not change return date
+               
         int _painting_id = (int)jSpinner_PaintingID.getValue();
         int _customer_id = (int)jSpinner_CustomerID.getValue();
         String _note = jTextArea_Note.getText();
@@ -393,32 +345,16 @@ public class ReturnPainting extends javax.swing.JFrame {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         try
         {
-            String _issue_date = dateFormat.format(jDateChooser_IssueDate.getDate());
             String _return_date = dateFormat.format(jDateChooser_ReturnDate.getDate());
             
-            Date issDate = dateFormat.parse(_issue_date);
-            Date rtnDate = dateFormat.parse(_return_date);
-            
-            if(!painting_Exist) //if paint doesn't exist
-            {
-                JOptionPane.showMessageDialog(null, "You Need To Check If This Painting Exist First By Clicking The Search Painting Button ", "Check If The Painting Exist", 2);
-            }
-            else if(!customer_Exist) //if customer doesn't exist
-            {
-                 JOptionPane.showMessageDialog(null, "You Need To Check If This Customer Exist First By Clicking The Search Customer Button ", "Check If The Customer Exist", 2);
-            }
-            else if(!issue.checkPaintingAvailability(_painting_id))
-            {
-                JOptionPane.showMessageDialog(null, "This Painting Is Not Available Right Now!", "Painting Is Not Available", 2);
-            }
-            
-            else if(rtnDate.before(issDate)) //if return day happen befoer issue day
-            {
-                JOptionPane.showMessageDialog(null, "The Return Date Must Be After The Issue Date", "Wrong Return Date", 2);
-            }
-            else
-            {
-                 issue.addIssue(_painting_id, _customer_id, "issued", _issue_date, _return_date, _note);
+            String _issue_date = dateFormat.format(jDateChooser_IssueDate.getDate());
+  
+                 issue.updateIssue(_painting_id, _customer_id, "lost", _issue_date, _return_date, _note);
+                 
+                 //-1
+                 int qty = new K_Classes.Paintings_class().getPaintbyId(_painting_id).getQty();
+                 painting.setQuantity_Minus_One(_painting_id,qty-1);
+                 
                  //reset fields
                  jSpinner_PaintingID.setValue(0);
                  jSpinner_CustomerID.setValue(0);
@@ -426,51 +362,43 @@ public class ReturnPainting extends javax.swing.JFrame {
                  jLabel_CustomerFullName_.setText("Customer Full-Name");
                  jDateChooser_IssueDate.setDate(new Date());
                  jDateChooser_ReturnDate.setDate(new Date());
-                 
-                 jLabel_Available.setText("YES-or-NO");
-                 jLabel_Available.setForeground(new Color (0,0,255));
+                 jTextArea_Note.setText("");
             }
-           
-        }
-        catch (HeadlessException | NullPointerException | ParseException ex) 
+        catch (HeadlessException | NullPointerException ex) 
         {
-            JOptionPane.showMessageDialog(null, "Select Issue Date & Return Date", "Select Date", 2);
+            JOptionPane.showMessageDialog(null, "Select A Painting From Table", "Select Painting", 2);
+        } catch (SQLException ex) {
+            Logger.getLogger(ReturnPainting.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton_lostActionPerformed
+
+    private void jButton_deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_deleteActionPerformed
+        
+        int index = jTable.getSelectedRow();
+
+        try
+        {
+            //Get Values
+        int _painting_id = Integer.parseInt(jTable.getValueAt(index, 0).toString());
+        int _cust_id = Integer.parseInt(jTable.getValueAt(index, 1).toString());
+        String _issue_date = jTable.getValueAt(index, 3).toString();
+        
+        issue.deletePaintingFromIssue(_painting_id, _cust_id, _issue_date);
+        
+        //Need Reload
+        
+        
+        }
+        catch (Exception ex)
+        {
+            JOptionPane.showMessageDialog(null, "Select A Painting From Table", "Select Painting", 2);
         }
         
-    }//GEN-LAST:event_jButton_IssueActionPerformed
+    }//GEN-LAST:event_jButton_deleteActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton_searchCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_searchCustomerActionPerformed
-        // search and display customer
-              //get the customer id
-            int customer_id = (int)jSpinner_CustomerID.getValue();
-        
-        try {
-           //get the customer by id
-            K_Classes.Customer selectedCustomer = customer.getCustomerbyId(customer_id);
-            //if paint exsit
-            if(selectedCustomer != null)
-            {
-                //display member name
-                jLabel_CustomerFullName_.setText(selectedCustomer.getFirstName() + " " + selectedCustomer.getLastName());  
-                //set the customer exist to true
-                customer_Exist = true;
-            }
-             //if this customer doesnt exsit
-            else
-            {
-                JOptionPane.showMessageDialog(null, "This customer doesn't exist!", "Customer Not Found", 2);
-                jLabel_CustomerFullName_.setText("Customer Full-Name");
-                customer_Exist = false;
-            }
-                    
-        } catch (SQLException ex) {
-            Logger.getLogger(ReturnPainting.class.getName()).log(Level.SEVERE, null, ex); 
-        }
-    }//GEN-LAST:event_jButton_searchCustomerActionPerformed
 
     private void jLabel_PaintingName_MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_PaintingName_MouseClicked
         // display paint info card
@@ -491,11 +419,97 @@ public class ReturnPainting extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jLabel_PaintingName_MouseEntered
 
+    private void jTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableMouseClicked
+        int index = jTable.getSelectedRow();
+
+        //Get Values
+        int paint_id = Integer.parseInt(jTable.getValueAt(index, 0).toString());
+        int cust_id = Integer.parseInt(jTable.getValueAt(index, 1).toString());
+        
+        K_Classes.Paintings_class selectedPainting;
+        K_Classes.Customer selectedCustomer;
+        try {
+            selectedPainting = painting.getPaintbyId(paint_id);
+            jSpinner_PaintingID.setValue(selectedPainting.getId());
+            //display paint title/name
+             jLabel_PaintingName_.setText(selectedPainting.getName());
+             
+             //get the customer by id
+            selectedCustomer = customer.getCustomerbyId(cust_id);
+            
+             //display member name
+                jSpinner_CustomerID.setValue(selectedCustomer.getId());
+                jLabel_CustomerFullName_.setText(selectedCustomer.getFirstName() + " " + selectedCustomer.getLastName()); 
+                
+                //Note: Ignore STATUS , so index won't have 2
+                String issue_date = jTable.getValueAt(index, 3).toString();
+                String return_date = jTable.getValueAt(index, 4).toString();
+                //String status = jTable.getValueAt(index, 4).toString();
+                String note = jTable.getValueAt(index, 5).toString();
+                
+              //Display DATE
+            Date issDate = new SimpleDateFormat("yyyy-MM-dd").parse(issue_date);
+            jDateChooser_IssueDate.setDate(issDate);
+             
+            Date returnDate = new SimpleDateFormat("yyyy-MM-dd").parse(return_date);
+            jDateChooser_ReturnDate.setDate(returnDate);
+                
+            jTextArea_Note.setText(note);
+        } catch (SQLException ex) {
+            Logger.getLogger(ReturnPainting.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(ReturnPainting.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+    
+    }//GEN-LAST:event_jTableMouseClicked
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+        String status = jComboBox1.getSelectedItem().toString();
+        
+        if(status.equals("All"))
+        {
+            status = "";
+        }
+        
+        populatejTablewithIssuePainting(status);
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void jButton_return1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_return1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton_return1ActionPerformed
+
      
     
     
     
     //Method-Function
+    
+    //GET from DB to jTable
+    public void populatejTablewithIssuePainting(String _status){
+        ArrayList<K_Classes.Issue_Painting> iList = issue.issuePaintingList(_status);
+        //Column
+        String[] colName = {"ID", "Customer ID", "Status", "Issued Date", "Return Date", "Note"};
+        
+        //Row
+        Object[][] rows = new Object[iList.size()][colName.length];
+        
+        for (int i=0; i<iList.size(); i++)
+        {
+            rows[i][0] = iList.get(i).getPainting_id();
+            rows[i][1] = iList.get(i).getCustomer_id();
+            rows[i][2] = iList.get(i).getStatus();
+            rows[i][3] = iList.get(i).getIssue_date();
+            rows[i][4] = iList.get(i).getReturn_date();
+            rows[i][5] = iList.get(i).getNote();
+            
+        }
+        
+        DefaultTableModel model = new DefaultTableModel(rows,colName);
+        jTable.setModel(model);
+    }
     
    
    
@@ -551,10 +565,10 @@ public class ReturnPainting extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton_Issue;
-    private javax.swing.JButton jButton_searchCustomer;
-    private javax.swing.JButton jButton_searchPainting;
+    private javax.swing.JButton jButton_delete;
+    private javax.swing.JButton jButton_lost;
+    private javax.swing.JButton jButton_return1;
+    private javax.swing.JComboBox<String> jComboBox1;
     private com.toedter.calendar.JDateChooser jDateChooser_IssueDate;
     private com.toedter.calendar.JDateChooser jDateChooser_ReturnDate;
     private javax.swing.JLabel jLabel19;
@@ -564,13 +578,14 @@ public class ReturnPainting extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
-    private javax.swing.JLabel jLabel_Available;
     private javax.swing.JLabel jLabel_CustomerFullName_;
     private javax.swing.JLabel jLabel_PaintingName_;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSpinner jSpinner_CustomerID;
     private javax.swing.JSpinner jSpinner_PaintingID;
+    private javax.swing.JTable jTable;
     private javax.swing.JTextArea jTextArea_Note;
     // End of variables declaration//GEN-END:variables
 }

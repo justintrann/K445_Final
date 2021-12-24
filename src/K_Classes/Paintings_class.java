@@ -368,6 +368,34 @@ public class Paintings_class {
         } catch (SQLException ex) {
             Logger.getLogger(Paintings_class.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
+    
+    public void setQuantity_Minus_One(int _painting_id, int _qty)
+    {
+        String updateQtyQuery;
+        PreparedStatement ps;
+        
+        try{
+ 
+            updateQtyQuery = "UPDATE `painting` SET qty=? WHERE id = ?";
+            ps = DB.getConnection().prepareStatement(updateQtyQuery);
+            
+            //Must match index with query above
+            ps.setInt(1, _qty);
+            ps.setInt(2, _painting_id);
+           
+            if(ps.executeUpdate() != 0)
+            {
+                JOptionPane.showMessageDialog(null, "Because of LOST PAINTING, Quantity-1","Edit Quantity Painting",1);
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(null, "Error, The quantity is not updated","Edit Quantity Painting",2);
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Paintings_class.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
 } // E.O.F
