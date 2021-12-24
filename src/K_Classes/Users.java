@@ -91,7 +91,7 @@ public class Users {
     public void addUsers(String _fname, String _lname, String _usename, String _password, String _user_type)
     {
         //add
-        String insertQuery = "INSERT INTO `users_table`(`firstName`, `lastName`, `usename`, `password`, `user_type`) VALUES (?,?,?,?,?)";
+        String insertQuery = "INSERT INTO users_table`(firstName`, lastName, usename, password, user_type) VALUES (?,?,?,?,?)";
         
         try {
             PreparedStatement ps = DB.getConnection().prepareStatement(insertQuery);
@@ -118,7 +118,7 @@ public class Users {
     //edit
     public void editUser(int _id, String _fname, String _lname, String _usename, String _password, String _user_type)
     {
-        String editQuery = "UPDATE `users_table` SET `firstName`=?,`lastName`=?,`usename`=?,`password`=?,`user_type`=? WHERE `id`=?";
+        String editQuery = "UPDATE users_table SET firstName`=?,lastName`=?,`usename`=?,`password`=?,`user_type`=? WHERE `id`=?";
         
         try {
             PreparedStatement ps = DB.getConnection().prepareStatement(editQuery);
@@ -146,20 +146,21 @@ public class Users {
     }
     
     //For jTable userList. GET from DB to jTable
-    public static ArrayList<User> userList()
+    public static ArrayList<Users> userList()
     {
-       ArrayList<User> uList = new ArrayList<>();
+       ArrayList<Users> uList = new ArrayList<>();
        
        K_Classes.Functions func = new Functions();
         
         try {
-            ResultSet rs = func.getData("SELECT * FROM `users_table`");
+            ResultSet rs = func.getData("SELECT * FROM users_table");
             
-            User user;
+            Users user;
             
             while (rs.next())
             {
-                user = new User(rs.getInt("id"), rs.getString("firstName"), rs.getString("lastName"), rs.getString("username"), rs.getString("password"), rs.getString("user_type"));
+                user = new Users(rs.getInt("id"), rs.getString("firstName"), rs.getString("lastName"), 
+                        rs.getString("usename"), rs.getString("password"),rs.getString("user_type"));
                 uList.add(user);
             }
         } catch (SQLException ex) {
@@ -169,4 +170,26 @@ public class Users {
       return uList;
     }
     
+}   
+/*
+        public Users trylogin(String _username, String _password)
+    {
+        //Users user = new Users();
+        K_Classes.Functions func = new Functions();
+        ResultSet rs = func.getData("SELECT * FROM `user_type` WHERE username = '"+_username+"' and password = '"+_password+"'");
+            
+            Users user = null;
+            
+        try {
+            if (rs.next())
+            {
+                user = new Users(rs.getInt("id"), rs.getString("firstName"), rs.getString("lastName"), rs.getString("usename"), rs.getString("password"), rs.getString("user_type"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Author.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return user;
+    }
 }
+*/
