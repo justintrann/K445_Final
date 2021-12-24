@@ -253,15 +253,12 @@ public class ReturnPainting extends javax.swing.JFrame {
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                             .addComponent(jLabel19)
                             .addGap(75, 75, 75)
-                            .addComponent(jDateChooser_IssueDate, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                            .addGap(54, 54, 54)
-                            .addComponent(jButton_delete, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jDateChooser_IssueDate, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(52, 52, 52)
-                        .addComponent(jButton_return1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton_lost, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(61, 61, 61)
+                        .addComponent(jButton_return1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(29, 29, 29)
+                        .addComponent(jButton_lost, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -270,6 +267,10 @@ public class ReturnPainting extends javax.swing.JFrame {
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 506, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(112, 112, 112)
+                .addComponent(jButton_delete, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -385,8 +386,13 @@ public class ReturnPainting extends javax.swing.JFrame {
         
         issue.deletePaintingFromIssue(_painting_id, _cust_id, _issue_date);
         
-        //Need Reload
-        
+        jSpinner_CustomerID.setValue(0);
+        jSpinner_PaintingID.setValue(0);
+        jLabel_PaintingName_.setText("Painting Name");
+        jLabel_CustomerFullName_.setText("Customer Name");
+        jDateChooser_IssueDate.setDate(new Date());
+        jDateChooser_ReturnDate.setDate(new Date());
+        jTextArea_Note.setText("");
         
         }
         catch (Exception ex)
@@ -469,7 +475,7 @@ public class ReturnPainting extends javax.swing.JFrame {
         // TODO add your handling code here:
         String status = jComboBox1.getSelectedItem().toString();
         
-        if(status.equals("All"))
+        if(status.equals(""))
         {
             status = "";
         }
@@ -478,13 +484,49 @@ public class ReturnPainting extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void jButton_return1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_return1ActionPerformed
-        // TODO add your handling code here:
+ 
+        int _painting_id = (int)jSpinner_PaintingID.getValue();
+        int _customer_id = (int)jSpinner_CustomerID.getValue();
+        String _note = jTextArea_Note.getText();
+        
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        try
+        {
+            String _return_date = dateFormat.format(jDateChooser_ReturnDate.getDate());
+            Date retuDate = dateFormat.parse(_return_date);
+            
+            String _issue_date = dateFormat.format(jDateChooser_IssueDate.getDate());
+            Date issDate = dateFormat.parse(_issue_date);
+            
+            if(retuDate.before(issDate))
+            {
+                JOptionPane.showMessageDialog(null, "Return Date must go after Issue Date","Error",2);
+            }
+            else
+            {
+                 issue.updateIssue(_painting_id, _customer_id, "returned", _issue_date, _return_date, _note);
+                 
+                 //reset fields
+                 jSpinner_PaintingID.setValue(0);
+                 jSpinner_CustomerID.setValue(0);
+                 jLabel_PaintingName_.setText("Painting Name");
+                 jLabel_CustomerFullName_.setText("Customer Full-Name");
+                 jDateChooser_IssueDate.setDate(new Date());
+                 jDateChooser_ReturnDate.setDate(new Date());
+                 jTextArea_Note.setText("");
+                 
+                 populatejTablewithIssuePainting("All");
+            }
+        }
+        catch (HeadlessException | NullPointerException ex) 
+        {
+            JOptionPane.showMessageDialog(null, "Select A Painting From Table", "Select Painting", 2);
+        } catch (ParseException ex) {
+            Logger.getLogger(ReturnPainting.class.getName()).log(Level.SEVERE, null, ex);
+        }
+              
     }//GEN-LAST:event_jButton_return1ActionPerformed
-
-     
-    
-    
-    
+       
     //Method-Function
     
     //GET from DB to jTable

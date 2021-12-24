@@ -234,6 +234,8 @@ public class Genres extends javax.swing.JFrame {
             //K_Classes.Genres_class ge = new K_Classes.Genres_class();
             ge.addGenres(genr);
             
+            jLabel3.setVisible(false);
+            
             //Refresh after Add 
             populatejTablewithGenres();
         }
@@ -253,7 +255,8 @@ public class Genres extends javax.swing.JFrame {
             {
                 int id =Integer.parseInt(jText_id.getText());
                 ge.editGenres(id,genr);
-            
+                
+            jLabel3.setVisible(false);
             //Refresh after Add 
             populatejTablewithGenres();
             }

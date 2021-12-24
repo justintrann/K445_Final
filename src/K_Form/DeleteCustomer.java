@@ -165,6 +165,10 @@ public class DeleteCustomer extends javax.swing.JFrame {
             if (confirm == JOptionPane.YES_OPTION)
             {
                 customer.deleteCustomer(id);
+                
+                jText_ID.setText("");
+                
+                jLabel3.setForeground(Color.white);
             }
         } 
         catch (Exception e) 

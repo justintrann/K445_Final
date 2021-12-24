@@ -161,6 +161,11 @@ public class EditCustomer extends javax.swing.JFrame {
         jLabel6.setText("Phone Number");
 
         jText_Phone.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jText_Phone.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jText_PhoneKeyTyped(evt);
+            }
+        });
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel7.setText("Email");
@@ -403,8 +408,8 @@ public class EditCustomer extends javax.swing.JFrame {
                     img = Files.readAllBytes(path);
                     customer.editCustomer(id, fname, lname, phone, address, gender, email, img);
                     
-                } catch (IOException ex) {
-                    Logger.getLogger(EditCustomer.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException | NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(null, "Please enter Picture and ID ","No Picture or ID Selected",2);
                 }
             }
             else{
@@ -486,6 +491,13 @@ public class EditCustomer extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_jButton_SearchActionPerformed
+
+    private void jText_PhoneKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jText_PhoneKeyTyped
+        if(!Character.isDigit(evt.getKeyChar()))
+        {
+            evt.consume();
+        }
+    }//GEN-LAST:event_jText_PhoneKeyTyped
 
     /**
      * @param args the command line arguments

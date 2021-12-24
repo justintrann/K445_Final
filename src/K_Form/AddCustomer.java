@@ -151,6 +151,14 @@ public class AddCustomer extends javax.swing.JFrame {
         jLabel6.setText("Phone Number");
 
         jText_Phone.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jText_Phone.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jText_PhoneKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jText_PhoneKeyTyped(evt);
+            }
+        });
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel7.setText("Email");
@@ -384,10 +392,24 @@ public class AddCustomer extends javax.swing.JFrame {
     private void jButton_SelectProfilePictureActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_SelectProfilePictureActionPerformed
         
             String path = func.selectImage();
+            if(!path.equals(""))
+            {
             jLabel_ImagePath.setText(path);
             imagePath = path;
-        
+            }
     }//GEN-LAST:event_jButton_SelectProfilePictureActionPerformed
+
+    private void jText_PhoneKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jText_PhoneKeyPressed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jText_PhoneKeyPressed
+
+    private void jText_PhoneKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jText_PhoneKeyTyped
+        if(!Character.isDigit(evt.getKeyChar()))
+        {
+            evt.consume();
+        }
+    }//GEN-LAST:event_jText_PhoneKeyTyped
 
     /**
      * @param args the command line arguments

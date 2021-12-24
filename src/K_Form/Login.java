@@ -50,8 +50,6 @@ public class Login extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jText_Username = new javax.swing.JTextField();
         jText_Password = new javax.swing.JPasswordField();
-        jLabel3 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
 
@@ -67,12 +65,6 @@ public class Login extends javax.swing.JFrame {
         jText_Username.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         jText_Password.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel3.setText("USER TYPE");
-
-        jComboBox1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel4.setText("PASSWORD");
@@ -92,22 +84,15 @@ public class Login extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jLabel2)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(182, 182, 182)
-                        .addComponent(jLabel4)
-                        .addContainerGap(192, Short.MAX_VALUE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(192, 192, 192)
+                .addComponent(jLabel4)
+                .addContainerGap(192, Short.MAX_VALUE))
             .addComponent(jText_Username, javax.swing.GroupLayout.Alignment.TRAILING)
             .addComponent(jText_Password, javax.swing.GroupLayout.Alignment.TRAILING)
-            .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -120,12 +105,9 @@ public class Login extends javax.swing.JFrame {
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jText_Password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(23, 23, 23)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -146,8 +128,8 @@ public class Login extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -168,29 +150,34 @@ public class Login extends javax.swing.JFrame {
         //GET from db
         String username = jText_Username.getText();
         String password = String.valueOf(jText_Password.getPassword());
-        
-        ResultSet rs;
-        PreparedStatement ps;
-        
-        String query = "SELECT * FROM `users` WHERE `username` = ? AND `password` = ?";
+
         //Check if jText empty ?
         if (username.trim().equals("") || password.trim().equals(""))
-        {
+        {    
             JOptionPane.showMessageDialog(null, "Please Check your username & password again" , "Error" , 3);
         }
         else
         {
-            try {
+                K_Classes.Users user = new K_Classes.Users().tryLogin(username, password);
                 
-                ps = DB.getConnection().prepareStatement(query);
-                ps.setString(1, username);
-                ps.setString(2, password);
-                rs = ps.executeQuery();
-                
-                if (rs.next())
+                if (user!= null)
                 {
-                    Dashboard dash = new Dashboard();
-                    dash.setVisible(true);
+                    //Admin Full Access
+                    //Staff
+                    Dashboard dashFo = new Dashboard();
+                    
+                    if(user.getUserType().equals("admin"))
+                    {
+                       dashFo.jLabel_hello.setText("Welcome Back " +user.getUsename());
+                        
+                    }
+                    else if (user.getUserType().equals("staff"))
+                    {
+
+                        dashFo.jButton_manageUsers.setVisible(false);
+                        dashFo.jLabel_hello.setText("Welcome Back " +user.getUsename());
+                    }
+                    dashFo.setVisible(true);
                     
                     //Must close Login Form
                     this.dispose();
@@ -199,11 +186,6 @@ public class Login extends javax.swing.JFrame {
                 {
                     JOptionPane.showMessageDialog(null, "Wrong Information" , "Error" , 0);
                 }
-                
-                
-            } catch (SQLException ex) {
-                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-            }
         }
         
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -245,10 +227,8 @@ public class Login extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

@@ -122,16 +122,14 @@ public class Issue_Painting {
             ps.setString(4, _issue_date);
             ps.setString(5, _return_date);
             ps.setString(6, _note);
-           
-            
             
             if(ps.executeUpdate() != 0)
             {
-                JOptionPane.showMessageDialog(null, "Issue Added","add issue",1);
+                JOptionPane.showMessageDialog(null, "Successfully","add issue",1);
             }
             else
             {
-                JOptionPane.showMessageDialog(null, "Issue Not Added","add issue",2);
+                JOptionPane.showMessageDialog(null, "Failed","add issue",2);
             }
             
         } catch (SQLException ex) {
@@ -227,7 +225,7 @@ public class Issue_Painting {
        K_Classes.Functions func = new Functions();
        String query;
        
-       if(_status.equals(""))
+       if(_status.equals("") || _status.equals("All"))
        {
            query = "SELECT * FROM `issue_painting`";
        }
