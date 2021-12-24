@@ -19,7 +19,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author Justin
+ * @author Asus
  */
 public class User extends javax.swing.JFrame {
 
@@ -56,7 +56,11 @@ public class User extends javax.swing.JFrame {
         jLabel_Username_1.setForeground(Color.white);
         jLabel7.setForeground(Color.white);
         //j
-        //populatejTablewithUser();
+        populatejTablewithUser();
+    }
+
+    public User(int aInt, String string, String string0, String string1, String string2, String string3) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     /**
@@ -407,10 +411,16 @@ public class User extends javax.swing.JFrame {
     private static final Logger LOG = Logger.getLogger(User.class.getName());
 
     private void jButton_editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_editActionPerformed
-        //
+        //edit user info
+        int id = Integer.parseInt(jText_id.getText());
         String fname = jText_firstName.getText();
         String lname = jText_lastName.getText();
-        String expertise = jText_Username.getText();
+        String username = jText_Username.getText();
+        String Password_1 = String.valueOf(jPasswordField1_.getPassword()); 
+        String Password_2 = String.valueOf(jPasswordField2_.getPassword());
+        String userType = "user";
+        
+        if(jCheckBox_SetAdmin.isSelected()){userType = "admin";}
         
         if(fname.isEmpty())
         {
@@ -420,20 +430,17 @@ public class User extends javax.swing.JFrame {
         {
             jLabel5.setVisible(true);
         }
+        else if (!Password_1.equals(Password_2))  //check the password doesn't equal password
+        {
+            JOptionPane.showMessageDialog(null, "Retype The Correct Password","Password Error",0);
+            //jLabel_Password_3.setVisible(true);
+        }
         else
         {
-            try
-            {
-                int id =Integer.parseInt(jText_id.getText());
-                //author.editAuthor(id, fname, lname, expertise, about);
-            
+            //K_Classes.Genres_class ge = new K_Classes.Genres_classes
+            User.addUser(fname, lname, username, Password_1, userType);
             //Refresh after Add 
-            //populatejTablewithGenres();
-            }
-            catch(NumberFormatException ex)
-            {
-                JOptionPane.showMessageDialog(null, "Invalid ID - " + ex.getMessage(),"Error",3);
-            }
+            populatejTablewithUser();
         }
     }//GEN-LAST:event_jButton_editActionPerformed
 
@@ -444,40 +451,53 @@ public class User extends javax.swing.JFrame {
         String id = jTable.getValueAt(index, 0).toString();
         String firstName = jTable.getValueAt(index, 1).toString();
         String lastName = jTable.getValueAt(index, 2).toString();
-        String expertise = jTable.getValueAt(index, 3).toString();
-        String about = jTable.getValueAt(index, 4).toString();
+        String username = jTable.getValueAt(index, 3).toString();
+        String password = jTable.getValueAt(index, 4).toString();
+        String userType = jTable.getValueAt(index, 5).toString();
         
         //Show
         jText_id.setText(id);
         jText_firstName.setText(firstName);
         jText_lastName.setText(lastName);
-        jText_Username.setText(expertise);
+        jText_Username.setText(username);
+        jPasswordField1_.setText(password);
+        jPasswordField2_.setText(password);
         
+        if(userType.equals("admin"))
+        {
+            jCheckBox_SetAdmin.setSelected(true);
+        }
+        else
+        {
+        
+            jCheckBox_SetAdmin.setSelected(false);
+        }
     }//GEN-LAST:event_jTableMouseClicked
-    /*
+    
     //GET from DB to jTable
-    public void populatejTablewithAuthors(){
-        ArrayList<K_Classes.Author> authorsList = K_Classes.Author.authorsList();
+    
+    public void populatejTablewithUser(){
+        ArrayList<K_Classes.Users> userList = K_Classes.Users.userList();
         
         //Column
-        String[] colName = {"ID", "F-Name", "L-Name", "Expertise", "About"};
+        String[] colName = {"ID", "F-Name", "L-Name", "Username", "Password", "Type"};
         
         //Row
-        Object[][] rows = new Object[authorsList.size()][colName.length];
+        Object[][] rows = new Object[userList.size()][colName.length];
         
-        for (int i=0; i<authorsList.size(); i++)
+        for (int i=0; i<userList.size(); i++)
         {
-            rows[i][0] = authorsList.get(i).getId();
-            rows[i][1] = authorsList.get(i).getFirstName();
-            rows[i][2] = authorsList.get(i).getLastName();
-            rows[i][3] = authorsList.get(i).getField_Of_Expertise();
-            rows[i][4] = authorsList.get(i).getAbout();
+            rows[i][0] = userList.get(i).getId();
+            rows[i][1] = userList.get(i).getFirstname();
+            rows[i][2] = userList.get(i).getLastname();
+            rows[i][3] = userList.get(i).getUsename();
+            rows[i][4] = userList.get(i).getPassword();
+            rows[i][5] = userList.get(i).getUserType();
         }
         
         DefaultTableModel model = new DefaultTableModel(rows,colName);
         jTable.setModel(model);
     }
-    */
 
     
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
@@ -500,6 +520,7 @@ public class User extends javax.swing.JFrame {
                 jText_firstName.setText("");
                 jText_lastName.setText("");
                 jText_Username.setText("");
+                
                 
             }
             catch(NumberFormatException ex)
